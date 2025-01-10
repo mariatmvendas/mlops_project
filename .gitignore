@@ -179,4 +179,13 @@ cython_debug/
 
 #New additions
 # Ignore all files in the 'data' directory
-data/
+data/processed/test
+data/processed/train
+data/processed/test_images.pt
+data/processed/test_targets.pt
+data/processed/train_images.pt
+data/processed/train_targets.pt
+data/raw/cloudy
+data/raw/desert
+data/raw/green_area
+data/raw/water
