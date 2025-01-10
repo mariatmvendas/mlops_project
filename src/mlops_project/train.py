@@ -1,116 +1,124 @@
+import typer
 import torch
 import torch.nn as nn
 import torch.optim as optim
 from torch.utils.data import DataLoader, TensorDataset
 import timm
 
+app = typer.Typer()
+
 # Check device configuration
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-print(f"Using device: {device}")
 
-# Load data
-try:
-    train_images = torch.load("data/processed/train_images.pt")
-    train_targets = torch.load("data/processed/train_targets.pt")
-except Exception as e:
-    print(f"Error loading data: {e}")
-    exit()
+@app.command()
+def train(
+    train_images_path: str = "data/processed/train_images.pt",
+    train_targets_path: str = "data/processed/train_targets.pt",
+    batch_size: int = 8,
+    num_epochs: int = 5,
+    learning_rate: float = 0.001
+):
+    """Train the model."""
+    # Load training data
+    try:
+        train_images = torch.load(train_images_path, weights_only=True)
+        train_targets = torch.load(train_targets_path, weights_only=True)
+    except Exception as e:
+        typer.echo(f"Error loading training data: {e}")
+        raise typer.Exit()
 
-# Check dataset size
-print(f"train_images size: {train_images.size()}")
-print(f"train_targets size: {train_targets.size()}")
+    # Check dataset size
+    typer.echo(f"train_images size: {train_images.size()}")
+    typer.echo(f"train_targets size: {train_targets.size()}")
 
-# Ensure images are in CHW format if needed
-if train_images.shape[-1] == 3:  # HWC format
-    train_images = torch.stack([img.permute(2, 0, 1) for img in train_images])
+    # Ensure images are in CHW format if needed
+    if train_images.shape[-1] == 3:  # HWC format
+        train_images = torch.stack([img.permute(2, 0, 1) for img in train_images])
 
-# Use a subset of data for debugging (optional)
-subset_size = 20  # Adjust this as needed for debugging
-train_images = train_images[:subset_size]
-train_targets = train_targets[:subset_size]
+    # Use a subset of data for debugging (optional)
+    subset_size = 20  # Adjust this as needed for debugging
+    train_images = train_images[:subset_size]
+    train_targets = train_targets[:subset_size]
 
-# Create Dataset and DataLoader
-dataset = TensorDataset(train_images, train_targets)
-batch_size = 8  # Smaller batch size to fit into memory
-dataloader = DataLoader(dataset, batch_size=batch_size, shuffle=True)
+    # Create Dataset and DataLoader
+    dataset = TensorDataset(train_images, train_targets)
+    dataloader = DataLoader(dataset, batch_size=batch_size, shuffle=True)
 
-# Define the model
-model = timm.create_model("resnet18", pretrained=True, num_classes=4)
-model = model.to(device)
+    # Define the model
+    model = timm.create_model("resnet18", pretrained=True, num_classes=4)
+    model = model.to(device)
 
-# Define loss and optimizer
-criterion = nn.CrossEntropyLoss()
-optimizer = optim.Adam(model.parameters(), lr=0.001)
+    # Define loss and optimizer
+    criterion = nn.CrossEntropyLoss()
+    optimizer = optim.Adam(model.parameters(), lr=learning_rate)
 
-# Training loop
-num_epochs = 5
-for epoch in range(num_epochs):
-    model.train()  # Set the model to training mode
-    running_loss = 0.0
+    # Training loop
+    for epoch in range(num_epochs):
+        model.train()
+        running_loss = 0.0
 
-    for images, targets in dataloader:
-        # Move data to the appropriate device
-        images, targets = images.to(device), targets.to(device)
+        for images, targets in dataloader:
+            images, targets = images.to(device), targets.to(device)
+            outputs = model(images)
+            loss = criterion(outputs, targets)
+            optimizer.zero_grad()
+            loss.backward()
+            optimizer.step()
+            running_loss += loss.item()
 
-        # Forward pass
-        outputs = model(images)
-        loss = criterion(outputs, targets)
+        typer.echo(f"Epoch [{epoch + 1}/{num_epochs}], Loss: {running_loss / len(dataloader):.4f}")
 
-        # Backward pass and optimization
-        optimizer.zero_grad()
-        loss.backward()
-        optimizer.step()
+    torch.save(model.state_dict(), "models/model.pth")
+    typer.echo("Training complete! Model saved as model.pth")
 
-        # Accumulate loss
-        running_loss += loss.item()
+@app.command()
+def evaluate(
+    test_images_path: str = "data/processed/test_images.pt",
+    test_targets_path: str = "data/processed/test_targets.pt",
+    model_path: str = "model.pth",
+    batch_size: int = 8
+):
+    """Evaluate the model."""
+    # Load test data
+    try:
+        test_images = torch.load(test_images_path, weights_only=True)
+        test_targets = torch.load(test_targets_path, weights_only=True)
+    except Exception as e:
+        typer.echo(f"Error loading test data: {e}")
+        raise typer.Exit()
 
-    # Print epoch loss
-    print(f"Epoch [{epoch + 1}/{num_epochs}], Loss: {running_loss / len(dataloader):.4f}")
+    # Check dataset size
+    typer.echo(f"test_images size: {test_images.size()}")
+    typer.echo(f"test_targets size: {test_targets.size()}")
 
-print("Training complete!")
+    # Ensure images are in CHW format if needed
+    if test_images.shape[-1] == 3:  # HWC format
+        test_images = torch.stack([img.permute(2, 0, 1) for img in test_images])
 
-# Load the test data
-try:
-    test_images = torch.load("data/processed/test_images.pt")
-    test_targets = torch.load("data/processed/test_targets.pt")
-except Exception as e:
-    print(f"Error loading test data: {e}")
-    exit()
+    # Create Dataset and DataLoader
+    test_dataset = TensorDataset(test_images, test_targets)
+    test_dataloader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
 
-# Check test data sizes
-print(f"test_images size: {test_images.size()}")
-print(f"test_targets size: {test_targets.size()}")
+    # Load the model
+    model = timm.create_model("resnet18", pretrained=True, num_classes=4)
+    model.load_state_dict(torch.load(model_path, weights_only=True))
+    model = model.to(device)
 
-# Ensure images are in CHW format if needed
-if test_images.shape[-1] == 3:  # HWC format
-    test_images = torch.stack([img.permute(2, 0, 1) for img in test_images])
+    # Evaluate the model
+    model.eval()
+    correct = 0
+    total = 0
 
-# Create test Dataset and DataLoader
-test_dataset = TensorDataset(test_images, test_targets)
-test_dataloader = DataLoader(test_dataset, batch_size=8, shuffle=False)
+    with torch.no_grad():
+        for images, targets in test_dataloader:
+            images, targets = images.to(device), targets.to(device)
+            outputs = model(images)
+            _, predicted = torch.max(outputs, 1)
+            total += targets.size(0)
+            correct += (predicted == targets).sum().item()
 
-# Move model to evaluation mode
-model.eval()
+    accuracy = 100 * correct / total
+    typer.echo(f"Accuracy on test set: {accuracy:.2f}%")
 
-# Initialize variables to track accuracy
-correct = 0
-total = 0
-
-# No gradient computation is needed during evaluation
-with torch.no_grad():
-    for images, targets in test_dataloader:
-        images, targets = images.to(device), targets.to(device)
-
-        # Forward pass
-        outputs = model(images)
-
-        # Get predictions
-        _, predicted = torch.max(outputs, 1)
-
-        # Update metrics
-        total += targets.size(0)
-        correct += (predicted == targets).sum().item()
-
-# Calculate accuracy
-accuracy = 100 * correct / total
-print(f"Accuracy on test set: {accuracy:.2f}%")
+if __name__ == "__main__":
+    app()
