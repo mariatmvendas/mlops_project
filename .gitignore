@@ -187,5 +187,5 @@ data/processed/train_images.pt
 data/processed/train_targets.pt
 data/raw/cloudy
 data/raw/desert
-data/raw/green_area
+data/raw/forest
 data/raw/water

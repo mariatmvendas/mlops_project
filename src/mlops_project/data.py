@@ -7,7 +7,7 @@ from torchvision import transforms
 # Define paths
 RAW_DATA_PATH = "data/raw"
 PREPROCESSED_DATA_PATH = "data/processed"
-LABELS = ["cloudy", "desert", "green_area", "water"]
+LABELS = ["cloudy", "desert", "forest", "water"]
 
 # Define a transformation to convert images to tensors
 transform = transforms.Compose([
@@ -43,6 +43,7 @@ def check_images_size(directory):
         target_size = max(image_sizes, key=lambda x: list(image_sizes).count(x))
         print(f"Resizing images to: {target_size}")
         return False, target_size
+
 
 def organize_and_rename_images():
     """Organize images by their labels, rename them (cloudy_1, cloudy_2, ...), resize them if necessary, and split into train/test."""
@@ -108,10 +109,11 @@ def organize_and_rename_images():
             with Image.open(source_file) as img:
                 if img.size != target_size:
                     img = img.resize(target_size)
-                    print(f"Resized {file_name} to {target_size}")
+                    #print(f"Resized {file_name} to {target_size}")
                 img.save(target_file)
             
-            print(f"Moved and renamed {file_name} to {target_file_name}.")
+            #print(f"Moved and renamed {file_name} to {target_file_name}.")
+
 
 def convert_images_to_tensors(input_folder, image_output_file, target_output_file):
     """Convert images to tensors and save as .pt"""
@@ -124,7 +126,7 @@ def convert_images_to_tensors(input_folder, image_output_file, target_output_fil
             label = filename.split('_')[0]  # Adjust if needed based on your filename format
             if label in LABELS:
                 label_index = LABELS.index(label)  # Get the index of the label in the LABELS list
-                
+                print(label_index)
                 # Load the image and apply transformation
                 img_path = os.path.join(input_folder, filename)
                 img = Image.open(img_path).convert("RGB")  # Open image and ensure it has 3 channels
