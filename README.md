@@ -51,16 +51,16 @@ The directory structure of the project looks like this:
 
 ## Project description
 
-# Goal
+### Goal
 The overall goal of the project is to apply the concepts and techniques we have learned in the course to a machine learning problem. The chosen problem is the classification of satellite images. We aim to perform a multi-class classification task with these images. 
 
-# Framework
+### Framework
 For this project, we have chosen to use the TIMM framework for Computer Vision. This framework will allow us to construct and experiment with state-of-the-art deep learning models for our task. As part of the project, we will set up the TIMM framework within our environment. We plan to begin by using pre-trained models on our data and then explore ways to further enhance their performance.
 
-# Data
+### Data
 The dataset we have selected is the Satellite Image Classification dataset from Kaggle. It consists of high-resolution satellite images representing 4 land cover classes, including green areas, water bodies, cloudy skies and desert areas. The dataset contains 5631 labeled images.
 
-# Models
+### Models
 We aim to perform a multi-class image classification task using CNN-based architectures. Using the TIMM framework, we plan to explore models such as EfficientNet, ConvNeXt, and ResNet. By experimenting with different architectures, we intend to evaluate their performance on satellite imagery and identify the most effective model for this task.
 
 
