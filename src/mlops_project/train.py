@@ -25,9 +25,21 @@ def train(
     train_targets_path: str = "data/processed/train_targets.pt",
     batch_size: int = 8,
     num_epochs: int = 5,
-    learning_rate: float = 0.001
-):
-    """Train the model."""
+    learning_rate: float = 0.001) -> None:
+    """
+    Train the model.
+    
+        Args:
+            train_images_path (str): Path to the file of the train image tensors. Defaults to "data/processed/train_images.pt"
+            train_targets_path (str): Path to the file of the train target tensors. Defaults to "data/processed/train_targets.pt"
+            batch_size (int): Batch size. Defaults to 8
+            num_epochs (int): Number of epochs. Defaults to 5
+            learning_rate (float): Learning rate. Defaults to 0.001
+        
+        Returns:
+            None
+
+    """
     # Load training data
     try:
         train_images = torch.load(train_images_path, weights_only=True)
@@ -85,9 +97,20 @@ def evaluate(
     test_images_path: str = "data/processed/test_images.pt",
     test_targets_path: str = "data/processed/test_targets.pt",
     model_path: str = "model.pth",
-    batch_size: int = 8
-):
-    """Evaluate the model."""
+    batch_size: int = 8) -> None:
+    """
+    Evaluate the model.
+    
+        Args:
+            test_images_path (str): Path to the file of the test image tensors. Defaults to "data/processed/test_images.pt"
+            test_targets_path (str): Path to the file of the test target tensors. Defaults to "data/processed/test_targets.pt"
+            model_path (str): Name of the file containing the saved model. Defaults to "model.pth"
+            batch_size (int): Batch size. Defaults to 8
+        
+        Returns:
+            None
+
+    """
     # Load test data
     try:
         test_images = torch.load(test_images_path, weights_only=True)
