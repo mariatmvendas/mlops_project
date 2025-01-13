@@ -105,7 +105,7 @@ def train(
 def evaluate(
     test_images_path: str = "data/processed/test_images.pt",
     test_targets_path: str = "data/processed/test_targets.pt",
-    model_path: str = "model.pth",
+    model_path: str = "models/model.pth",
     batch_size: int = 8) -> None:
     """
     Evaluate the model.
