@@ -14,8 +14,17 @@ transform = transforms.Compose([
     transforms.ToTensor(),  # Convert images to tensor
 ])
 
-def check_images_size(directory):
-    """Check if all images in the directory have the same size and return the target size."""
+def check_images_size(directory: str) -> tuple[bool, tuple[int, int]]:
+    """
+    Check if all images in the directory have the same size and return the target size.
+    
+        Args:
+            directory (str): Path to the directory of the raw data
+
+        Returns:
+            bool: True if all images have the same size, false otherwise
+            tuple[int, int]: Target size of the image in width x height format, if the images have different sizes it chooses the most common
+    """
     image_sizes = set()  # Use a set to track unique image sizes
 
     # Loop through all the files in the directory
@@ -45,9 +54,16 @@ def check_images_size(directory):
         return False, target_size
 
 
-def organize_and_rename_images():
-    """Organize images by their labels, rename them (cloudy_1, cloudy_2, ...), resize them if necessary, and split into train/test."""
+def organize_and_rename_images() -> None:
+    """
+    Organize images by their labels, rename them (cloudy_1, cloudy_2, ...), resize them if necessary, and split into train/test.
     
+        Args:
+            None
+
+        Returns:
+            None
+    """
     # Create train and test folders
     train_folder = os.path.join(PREPROCESSED_DATA_PATH, "train")
     test_folder = os.path.join(PREPROCESSED_DATA_PATH, "test")
@@ -115,8 +131,18 @@ def organize_and_rename_images():
             #print(f"Moved and renamed {file_name} to {target_file_name}.")
 
 
-def convert_images_to_tensors(input_folder, image_output_file, target_output_file):
-    """Convert images to tensors and save as .pt"""
+def convert_images_to_tensors(input_folder: str, image_output_file: str, target_output_file: str) -> None:
+    """
+    Convert images to tensors and save as .pt file.
+    
+        Args:
+            input_folder (str): Path to the directory of the processed data
+            image_output_file (str): Name of the output file of the image tensors
+            target_output_file (str): Name of the output file of the target tensors
+
+        Returns:
+            None
+    """
     images = []
     targets = []
     
