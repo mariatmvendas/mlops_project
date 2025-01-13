@@ -1,3 +1,5 @@
+#from loguru import logger
+
 """
 The file 
  1) trains a model to classify the images in data/train and saves a model.pth file 
@@ -18,6 +20,13 @@ app = typer.Typer()
 
 # Check device configuration
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+def train_dataloader_satellite():
+    train_images_path: str = "data/processed/train_images.pt"
+    train_targets_path: str = "data/processed/train_targets.pt"
+    train_images = torch.load(train_images_path, weights_only=True)
+    train_targets = torch.load(train_targets_path, weights_only=True)
+    return train_images, train_targets
 
 @app.command()
 def train(
@@ -127,6 +136,7 @@ def evaluate(
             correct += (predicted == targets).sum().item()
 
     accuracy = 100 * correct / total
+    #logger.debug(f"Accuracy on test set: {accuracy:.2f}%")
     typer.echo(f"Accuracy on test set: {accuracy:.2f}%")
 
 if __name__ == "__main__":
