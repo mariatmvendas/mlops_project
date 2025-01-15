@@ -1,6 +1,6 @@
 """
-The file 
- 1) trains a model to classify the images in data/train and saves a model.pth file 
+The file
+ 1) trains a model to classify the images in data/train and saves a model.pth file
  2) It evaluates on the images of data/test
 
 1) and 2) must be called with typer
@@ -41,14 +41,14 @@ def train(
     learning_rate: float = 0.001) -> None:
     """
     Train the model.
-    
+
         Args:
             train_images_path (str): Path to the file of the train image tensors. Defaults to "data/processed/train_images.pt"
             train_targets_path (str): Path to the file of the train target tensors. Defaults to "data/processed/train_targets.pt"
             batch_size (int): Batch size. Defaults to 8
             num_epochs (int): Number of epochs. Defaults to 5
             learning_rate (float): Learning rate. Defaults to 0.001
-        
+
         Returns:
             None
 
@@ -116,13 +116,13 @@ def evaluate(
     batch_size: int = 8) -> None:
     """
     Evaluate the model.
-    
+
         Args:
             test_images_path (str): Path to the file of the test image tensors. Defaults to "data/processed/test_images.pt"
             test_targets_path (str): Path to the file of the test target tensors. Defaults to "data/processed/test_targets.pt"
             model_path (str): Name of the file containing the saved model. Defaults to "model.pth"
             batch_size (int): Batch size. Defaults to 8
-        
+
         Returns:
             None
 
