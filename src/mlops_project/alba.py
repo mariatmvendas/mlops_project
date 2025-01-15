@@ -80,6 +80,7 @@ for epoch in range(num_epochs):
 print("Training complete!")
 
 
+# PROFILING
 with profile(activities=[ProfilerActivity.CPU], record_shapes=True, on_trace_ready=tensorboard_trace_handler("./log/resnet18")) as prof:
     for i in range(10):
         model(images)
