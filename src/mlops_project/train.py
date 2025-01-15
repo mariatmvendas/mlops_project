@@ -1,5 +1,3 @@
-#from loguru import logger
-
 """
 The file 
  1) trains a model to classify the images in data/train and saves a model.pth file 
@@ -14,12 +12,18 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 from torch.utils.data import DataLoader, TensorDataset
+from loguru import logger
 import timm
 
 app = typer.Typer()
 
+# Create logger
+logger.remove()
+logger.add("logs/log_debug.log", level="DEBUG", rotation="100 MB")
+
 # Check device configuration
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+logger.debug(f"Used device: {device}")
 
 def train_dataloader_satellite():
     train_images_path: str = "data/processed/train_images.pt"
@@ -60,6 +64,8 @@ def train(
     # Check dataset size
     typer.echo(f"train_images size: {train_images.size()}")
     typer.echo(f"train_targets size: {train_targets.size()}")
+    logger.debug(f"train_images size: {train_images.size()}")
+    logger.debug(f"train_targets size: {train_targets.size()}")
 
     # Ensure images are in CHW format if needed
     if train_images.shape[-1] == 3:  # HWC format
@@ -77,6 +83,7 @@ def train(
     # Define the model
     model = timm.create_model("resnet18", pretrained=True, num_classes=4)
     model = model.to(device)
+    logger.debug(f"Model: {model}")
 
     # Define loss and optimizer
     criterion = nn.CrossEntropyLoss()
@@ -131,6 +138,8 @@ def evaluate(
     # Check dataset size
     typer.echo(f"test_images size: {test_images.size()}")
     typer.echo(f"test_targets size: {test_targets.size()}")
+    logger.debug(f"test_images size: {test_images.size()}")
+    logger.debug(f"test_targets size: {test_targets.size()}")
 
     # Ensure images are in CHW format if needed
     if test_images.shape[-1] == 3:  # HWC format
@@ -159,8 +168,8 @@ def evaluate(
             correct += (predicted == targets).sum().item()
 
     accuracy = 100 * correct / total
-    #logger.debug(f"Accuracy on test set: {accuracy:.2f}%")
     typer.echo(f"Accuracy on test set: {accuracy:.2f}%")
+    logger.debug(f"Accuracy on test set: {accuracy:.2f}%")
 
 if __name__ == "__main__":
     app()
