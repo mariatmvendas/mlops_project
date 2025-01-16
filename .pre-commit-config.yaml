@@ -4,7 +4,16 @@ repos:
 -   repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v3.2.0
     hooks:
-    -   id: trailing-whitespace
-    -   id: end-of-file-fixer
-    -   id: check-yaml
-    -   id: check-added-large-files
+    -   id: trailing-whitespace # remove unneccessary whitespaces
+    -   id: end-of-file-fixer # allow exactly one white line at end of code
+    -   id: check-yaml # check .yaml file format
+    -   id: check-json # check .json file format
+    # -   id: check-added-large-files # allow only files not exceeding 0.5 MB on git
+
+# -   repo: https://github.com/astral-sh/ruff-pre-commit
+#     rev: v0.4.7
+#     hooks:
+#     -   id: ruff # try to fix what is possible
+#         args: ["--fix"]
+#     -   id: ruff-format # perform formatting updates
+#     -   id: ruff # validate if all is fine with preview mode

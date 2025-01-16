@@ -2,6 +2,7 @@ import torch
 from torch.nn import functional as F
 from torch.utils.data import DataLoader, random_split, TensorDataset
 import pytorch_lightning as pl
+from pytorch_lightning.loggers import TensorBoardLogger
 
 # Define your Lightning Module
 class MyModel(pl.LightningModule):
@@ -42,6 +43,8 @@ if __name__ == "__main__":
     trainer.fit(model, train_loader, val_loader)
 
     
+logger = TensorBoardLogger("logs/", name="my_model")
 
+trainer = pl.Trainer(max_epochs=5, logger=logger)
 
 

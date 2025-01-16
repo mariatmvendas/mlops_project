@@ -52,7 +52,7 @@ The directory structure of the project looks like this:
 ## Project description
 
 ### Goal
-The overall goal of the project is to apply the concepts and techniques we have learned in the course to a machine learning problem. The chosen problem is the classification of satellite images. We aim to perform a multi-class classification task with these images. 
+The overall goal of the project is to apply the concepts and techniques we have learned in the course to a machine learning problem. The chosen problem is the classification of satellite images. We aim to perform a multi-class classification task with these images.
 
 ### Framework
 For this project, we have chosen to use the TIMM framework for Computer Vision. This framework will allow us to construct and experiment with state-of-the-art deep learning models for our task. As part of the project, we will set up the TIMM framework within our environment. We plan to begin by using pre-trained models on our data and then explore ways to further enhance their performance.
@@ -68,3 +68,8 @@ We aim to perform a multi-class image classification task using CNN-based archit
 Created using [mlops_template](https://github.com/SkafteNicki/mlops_template),
 a [cookiecutter template](https://github.com/cookiecutter/cookiecutter) for getting
 started with Machine Learning Operations (MLOps).
+
+---------------------------------------------------
+download from kaggle https://www.kaggle.com/datasets/mahmoudreda55/satellite-image-classification
+take the four folders and put them in data/raw
+rename green area to forest

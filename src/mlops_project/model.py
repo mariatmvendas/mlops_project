@@ -1,4 +1,4 @@
-import timm 
+import timm
 import torch
 
 model = timm.create_model('resnet34')
