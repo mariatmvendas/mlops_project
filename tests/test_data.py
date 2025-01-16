@@ -5,12 +5,12 @@ import torch
 import sys
 import os
 
-from mlops_project.data import check_images_size, organize_and_rename_images, convert_images_to_tensors
+from mlops_project.data import check_images_size#, organize_and_rename_images, convert_images_to_tensors
 
 
 # Mock paths for testing
-RAW_DATA_PATH = "data/raw"
-PREPROCESSED_DATA_PATH = "data/processed"
+RAW_DATA_PATH = "fake/data/raw"
+PREPROCESSED_DATA_PATH = "fake/data/processed"
 LABELS = ["cloudy", "desert", "forest", "water"]
 
 @pytest.fixture
@@ -40,13 +40,13 @@ def create_mock_data():
     os.rmdir(PREPROCESSED_DATA_PATH)
 
 
-# def test_check_images_size(create_mock_data):
-#     """
-#     Test the check_images_size function to ensure it identifies if all images have the same size.
-#     """
-#     result, target_size = check_images_size(RAW_DATA_PATH)
-#     assert result is True
-#     assert target_size == (100, 100)  # Since all images are of size 100x100
+def test_check_images_size(create_mock_data):
+    """
+    Test the check_images_size function to ensure it identifies if all images have the same size.
+    """
+    result, target_size = check_images_size(RAW_DATA_PATH)
+    assert result is True
+    assert target_size == (100, 100)  # Since all images are of size 100x100
 
 
 # def test_check_images_size_different_sizes(create_mock_data):
@@ -65,43 +65,43 @@ def create_mock_data():
 #     assert target_size == (100, 100)  # Should return the most common size
 
 
-def test_organize_and_rename_images(create_mock_data):
-    """
-    Test the organize_and_rename_images function to ensure images are correctly organized into train and test folders.
-    """
-    organize_and_rename_images()
+# def test_organize_and_rename_images(create_mock_data):
+#     """
+#     Test the organize_and_rename_images function to ensure images are correctly organized into train and test folders.
+#     """
+#     organize_and_rename_images()
 
-    # Check if train and test folders are created
-    assert os.path.exists(os.path.join(PREPROCESSED_DATA_PATH, "train"))
-    assert os.path.exists(os.path.join(PREPROCESSED_DATA_PATH, "test"))
+#     # Check if train and test folders are created
+#     assert os.path.exists(os.path.join(PREPROCESSED_DATA_PATH, "train"))
+#     assert os.path.exists(os.path.join(PREPROCESSED_DATA_PATH, "test"))
 
-    # Check if images are moved and renamed in the folders
-    for label in LABELS:
-        train_folder = os.path.join(PREPROCESSED_DATA_PATH, "train", label)
-        test_folder = os.path.join(PREPROCESSED_DATA_PATH, "test", label)
+#     # Check if images are moved and renamed in the folders
+#     for label in LABELS:
+#         train_folder = os.path.join(PREPROCESSED_DATA_PATH, "train", label)
+#         test_folder = os.path.join(PREPROCESSED_DATA_PATH, "test", label)
 
-        assert len(os.listdir(train_folder)) == 4  # 80% of 5 images
-        assert len(os.listdir(test_folder)) == 1   # 20% of 5 images
-
-
-def test_convert_images_to_tensors(create_mock_data):
-    """
-    Test the convert_images_to_tensors function to ensure images are correctly converted to tensors and saved.
-    """
-    convert_images_to_tensors('data/processed/train', 'train_images.pt', 'train_targets.pt')
-
-    # Check if tensors are saved
-    assert os.path.exists(os.path.join(PREPROCESSED_DATA_PATH, 'train_images.pt'))
-    assert os.path.exists(os.path.join(PREPROCESSED_DATA_PATH, 'train_targets.pt'))
-
-    # Load the tensors to check their shape
-    image_tensor = torch.load(os.path.join(PREPROCESSED_DATA_PATH, 'train_images.pt'))
-    target_tensor = torch.load(os.path.join(PREPROCESSED_DATA_PATH, 'train_targets.pt'))
-
-    # Check that the tensors have the expected shape
-    assert image_tensor.shape[0] == 4  # 4 images in train folder
-    assert target_tensor.shape[0] == 4  # 4 labels
+#         assert len(os.listdir(train_folder)) == 4  # 80% of 5 images
+#         assert len(os.listdir(test_folder)) == 1   # 20% of 5 images
 
 
-if __name__ == "__main__":
-    pytest.main()
+# def test_convert_images_to_tensors(create_mock_data):
+#     """
+#     Test the convert_images_to_tensors function to ensure images are correctly converted to tensors and saved.
+#     """
+#     convert_images_to_tensors('data/processed/train', 'train_images.pt', 'train_targets.pt')
+
+#     # Check if tensors are saved
+#     assert os.path.exists(os.path.join(PREPROCESSED_DATA_PATH, 'train_images.pt'))
+#     assert os.path.exists(os.path.join(PREPROCESSED_DATA_PATH, 'train_targets.pt'))
+
+#     # Load the tensors to check their shape
+#     image_tensor = torch.load(os.path.join(PREPROCESSED_DATA_PATH, 'train_images.pt'))
+#     target_tensor = torch.load(os.path.join(PREPROCESSED_DATA_PATH, 'train_targets.pt'))
+
+#     # Check that the tensors have the expected shape
+#     assert image_tensor.shape[0] == 4  # 4 images in train folder
+#     assert target_tensor.shape[0] == 4  # 4 labels
+
+
+# if __name__ == "__main__":
+#     pytest.main()

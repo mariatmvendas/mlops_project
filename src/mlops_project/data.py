@@ -131,49 +131,49 @@ def organize_and_rename_images() -> None:
             #print(f"Moved and renamed {file_name} to {target_file_name}.")
 
 
-def convert_images_to_tensors(input_folder: str, image_output_file: str, target_output_file: str) -> None:
-    """
-    Convert images to tensors and save as .pt file.
+# def convert_images_to_tensors(input_folder: str, image_output_file: str, target_output_file: str) -> None:
+#     """
+#     Convert images to tensors and save as .pt file.
 
-        Args:
-            input_folder (str): Path to the directory of the processed data
-            image_output_file (str): Name of the output file of the image tensors
-            target_output_file (str): Name of the output file of the target tensors
+#         Args:
+#             input_folder (str): Path to the directory of the processed data
+#             image_output_file (str): Name of the output file of the image tensors
+#             target_output_file (str): Name of the output file of the target tensors
 
-        Returns:
-            None
-    """
-    images = []
-    targets = []
+#         Returns:
+#             None
+#     """
+#     images = []
+#     targets = []
 
-    for filename in os.listdir(input_folder):
-        if filename.endswith(".jpg") or filename.endswith(".png"):  # Adjust image extensions as needed
-            # Extract the label from the filename (assuming the label is part of the filename)
-            label = filename.split('_')[0]  # Adjust if needed based on your filename format
-            if label in LABELS:
-                label_index = LABELS.index(label)  # Get the index of the label in the LABELS list
-                print(label_index)
-                # Load the image and apply transformation
-                img_path = os.path.join(input_folder, filename)
-                img = Image.open(img_path).convert("RGB")  # Open image and ensure it has 3 channels
-                tensor = transform(img)
+#     for filename in os.listdir(input_folder):
+#         if filename.endswith(".jpg") or filename.endswith(".png"):  # Adjust image extensions as needed
+#             # Extract the label from the filename (assuming the label is part of the filename)
+#             label = filename.split('_')[0]  # Adjust if needed based on your filename format
+#             if label in LABELS:
+#                 label_index = LABELS.index(label)  # Get the index of the label in the LABELS list
+#                 print(label_index)
+#                 # Load the image and apply transformation
+#                 img_path = os.path.join(input_folder, filename)
+#                 img = Image.open(img_path).convert("RGB")  # Open image and ensure it has 3 channels
+#                 tensor = transform(img)
 
-                # Append the image tensor and label index to the respective lists
-                images.append(tensor)
-                targets.append(label_index)
+#                 # Append the image tensor and label index to the respective lists
+#                 images.append(tensor)
+#                 targets.append(label_index)
 
-    # Stack the images into a single tensor (batch of images)
-    image_tensor = torch.stack(images)
-    target_tensor = torch.tensor(targets)  # Convert the list of labels to a tensor
+#     # Stack the images into a single tensor (batch of images)
+#     image_tensor = torch.stack(images)
+#     target_tensor = torch.tensor(targets)  # Convert the list of labels to a tensor
 
-    # Save the tensors to .pt files
-    torch.save(image_tensor, os.path.join(PREPROCESSED_DATA_PATH, image_output_file))
-    torch.save(target_tensor, os.path.join(PREPROCESSED_DATA_PATH, target_output_file))
-    print(f"Saved image tensor to {os.path.join(PREPROCESSED_DATA_PATH, image_output_file)} and target tensor to {os.path.join(PREPROCESSED_DATA_PATH, target_output_file)}")
+#     # Save the tensors to .pt files
+#     torch.save(image_tensor, os.path.join(PREPROCESSED_DATA_PATH, image_output_file))
+#     torch.save(target_tensor, os.path.join(PREPROCESSED_DATA_PATH, target_output_file))
+#     print(f"Saved image tensor to {os.path.join(PREPROCESSED_DATA_PATH, image_output_file)} and target tensor to {os.path.join(PREPROCESSED_DATA_PATH, target_output_file)}")
 
-# Organize images and convert them to tensors
-organize_and_rename_images()
+# # Organize images and convert them to tensors
+# organize_and_rename_images()
 
-# Convert and save images and targets from train and test folders
-convert_images_to_tensors('data/processed/train', 'train_images.pt', 'train_targets.pt')
-convert_images_to_tensors('data/processed/test', 'test_images.pt', 'test_targets.pt')
+# # Convert and save images and targets from train and test folders
+# convert_images_to_tensors('data/processed/train', 'train_images.pt', 'train_targets.pt')
+# convert_images_to_tensors('data/processed/test', 'test_images.pt', 'test_targets.pt')
