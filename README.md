@@ -1,3 +1,12 @@
+# Instruction for developers
+download from kaggle https://www.kaggle.com/datasets/mahmoudreda55/satellite-image-classification
+take the four folders and put them in data/raw
+rename green area to forest
+run data.py
+run train.py
+
+
+
 # mlops_project
 
 mlops project group29
@@ -69,7 +78,3 @@ Created using [mlops_template](https://github.com/SkafteNicki/mlops_template),
 a [cookiecutter template](https://github.com/cookiecutter/cookiecutter) for getting
 started with Machine Learning Operations (MLOps).
 
----------------------------------------------------
-download from kaggle https://www.kaggle.com/datasets/mahmoudreda55/satellite-image-classification
-take the four folders and put them in data/raw
-rename green area to forest
