@@ -1,4 +1,8 @@
+
 [core]
-    remote = storage
-['remote "storage"']
+    remote = myremote
+
+['remote "myremote"']
     url = gdrive://1OLOchb51mZitvv7vGFwl0lescjZaOhHC
+    gdrive_use_service_account = true
+    gdrive_service_account_json_file_path = /Users/albapi/Downloads/plexiform-crane-448010-f0-1d08b4dff326.json
