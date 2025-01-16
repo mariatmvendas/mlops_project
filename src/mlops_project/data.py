@@ -55,126 +55,127 @@ def check_images_size(directory: str) -> tuple[bool, tuple[int, int]]:
         return False, target_size
 
 
-# def organize_and_rename_images(preprocessed= PREPROCESSED_DATA_PATH, raw_data_path= RAW_DATA_PATH) -> None:
-#     """
-#     Organize images by their labels, rename them (cloudy_1, cloudy_2, ...), resize them if necessary, and split into train/test.
+def organize_and_rename_images(preprocessed= PREPROCESSED_DATA_PATH, raw_data_path= RAW_DATA_PATH) -> None:
+    """
+    Organize images by their labels, rename them (cloudy_1, cloudy_2, ...), resize them if necessary, and split into train/test.
 
-#         Args:
-#             None
+        Args:
+            None
 
-#         Returns:
-#             None
-#     """
-#     # Create train and test folders
-#     train_folder = os.path.join(preprocessed, "train")
-#     test_folder =  os.path.join(preprocessed, "test")
+        Returns:
+            None
+    """
+    # Create train and test folders
+    train_folder = os.path.join(preprocessed, "train")
+    test_folder =  os.path.join(preprocessed, "test")
 
-#     if not os.path.exists(train_folder):
-#         os.makedirs(train_folder)
-#         print(f"Created folder: {train_folder}")
+    if not os.path.exists(train_folder):
+        os.makedirs(train_folder)
+        print(f"Created folder: {train_folder}")
 
-#     if not os.path.exists(test_folder):
-#         os.makedirs(test_folder)
-#         print(f"Created folder: {test_folder}")
+    if not os.path.exists(test_folder):
+        os.makedirs(test_folder)
+        print(f"Created folder: {test_folder}")
 
-#     # Check image sizes in the raw data before organizing and renaming
-#     all_same_size, target_size = check_images_size(raw_data_path)
+    # Check image sizes in the raw data before organizing and renaming
+    all_same_size, target_size = check_images_size(raw_data_path)
 
-#     if not all_same_size:
-#         print("Resizing images to the target size...")
+    if not all_same_size:
+        print("Resizing images to the target size...")
 
-#     for folder_name in LABELS:
-#         source_folder = os.path.join(raw_data_path, folder_name)
+    for folder_name in LABELS:
+        source_folder = os.path.join(raw_data_path, folder_name)
 
-#         if not os.path.exists(source_folder):
-#             print(f"Source folder {source_folder} does not exist. Skipping.")
-#             continue
+        if not os.path.exists(source_folder):
+            print(f"Source folder {source_folder} does not exist. Skipping.")
+            continue
 
-#         # Get the list of images in the source folder
-#         images = [file_name for file_name in os.listdir(source_folder) if file_name.lower().endswith(('.png', '.jpg', '.jpeg'))]
+        # Get the list of images in the source folder
+        images = [file_name for file_name in os.listdir(source_folder) if file_name.lower().endswith(('.png', '.jpg', '.jpeg'))]
 
-#         # Shuffle the images for random splitting
-#         random.shuffle(images)
+        # Shuffle the images for random splitting
+        random.shuffle(images)
 
-#         # Split images into train and test sets (80/20)
-#         split_index = int(0.8 * len(images))
-#         train_images = images[:split_index]
-#         test_images = images[split_index:]
+        # Split images into train and test sets (80/20)
+        split_index = int(0.8 * len(images))
+        train_images = images[:split_index]
+        test_images = images[split_index:]
 
-#         # Organize train images
-#         for counter, file_name in enumerate(train_images, start=1):
-#             source_file = os.path.join(source_folder, file_name)
-#             target_file_name = f"{folder_name}_{counter}{os.path.splitext(file_name)[1]}"
-#             target_file = os.path.join(train_folder, target_file_name)
+        # Organize train images
+        for counter, file_name in enumerate(train_images, start=1):
+            source_file = os.path.join(source_folder, file_name)
+            target_file_name = f"{folder_name}_{counter}{os.path.splitext(file_name)[1]}"
+            target_file = os.path.join(train_folder, target_file_name)
 
-#             # Resize the image if necessary and move to train folder
-#             with Image.open(source_file) as img:
-#                 if img.size != target_size:
-#                     img = img.resize(target_size)
-#                     print(f"Resized {file_name} to {target_size}")
-#                 img.save(target_file)
+            # Resize the image if necessary and move to train folder
+            with Image.open(source_file) as img:
+                if img.size != target_size:
+                    img = img.resize(target_size)
+                    print(f"Resized {file_name} to {target_size}")
+                img.save(target_file)
 
-#             print(f"Moved and renamed {file_name} to {target_file_name}.")
+            print(f"Moved and renamed {file_name} to {target_file_name}.")
 
-#         # Organize test images
-#         for counter, file_name in enumerate(test_images, start=1):
-#             source_file = os.path.join(source_folder, file_name)
-#             target_file_name = f"{folder_name}_{counter + len(train_images)}{os.path.splitext(file_name)[1]}"
-#             target_file = os.path.join(test_folder, target_file_name)
+        # Organize test images
+        for counter, file_name in enumerate(test_images, start=1):
+            source_file = os.path.join(source_folder, file_name)
+            target_file_name = f"{folder_name}_{counter + len(train_images)}{os.path.splitext(file_name)[1]}"
+            target_file = os.path.join(test_folder, target_file_name)
 
-#             # Resize the image if necessary and move to test folder
-#             with Image.open(source_file) as img:
-#                 if img.size != target_size:
-#                     img = img.resize(target_size)
-#                     #print(f"Resized {file_name} to {target_size}")
-#                 img.save(target_file)
+            # Resize the image if necessary and move to test folder
+            with Image.open(source_file) as img:
+                if img.size != target_size:
+                    img = img.resize(target_size)
+                    #print(f"Resized {file_name} to {target_size}")
+                img.save(target_file)
 
-#             #print(f"Moved and renamed {file_name} to {target_file_name}.")
+            #print(f"Moved and renamed {file_name} to {target_file_name}.")
 
 
-# def convert_images_to_tensors(input_folder: str, image_output_file: str, target_output_file: str) -> None:
-#     """
-#     Convert images to tensors and save as .pt file.
+def convert_images_to_tensors(input_folder: str,output_folder: str, image_output_file: str, target_output_file: str) -> None:
+    """
+    Convert images to tensors and save as .pt file.
 
-#         Args:
-#             input_folder (str): Path to the directory of the processed data
-#             image_output_file (str): Name of the output file of the image tensors
-#             target_output_file (str): Name of the output file of the target tensors
+        Args:
+            input_folder (str): Path to the directory of the processed data
+            image_output_file (str): Name of the output file of the image tensors
+            target_output_file (str): Name of the output file of the target tensors
 
-#         Returns:
-#             None
-#     """
-#     images = []
-#     targets = []
+        Returns:
+            None
+    """
+    images = []
+    targets = []
 
-#     for filename in os.listdir(input_folder):
-#         if filename.endswith(".jpg") or filename.endswith(".png"):  # Adjust image extensions as needed
-#             # Extract the label from the filename (assuming the label is part of the filename)
-#             label = filename.split('_')[0]  # Adjust if needed based on your filename format
-#             if label in LABELS:
-#                 label_index = LABELS.index(label)  # Get the index of the label in the LABELS list
-#                 print(label_index)
-#                 # Load the image and apply transformation
-#                 img_path = os.path.join(input_folder, filename)
-#                 img = Image.open(img_path).convert("RGB")  # Open image and ensure it has 3 channels
-#                 tensor = transform(img)
+    for filename in os.listdir(input_folder):
+        if filename.endswith(".jpg") or filename.endswith(".png"):  # Adjust image extensions as needed
+            # Extract the label from the filename (assuming the label is part of the filename)
+            label = filename.split('_')[0]  # Adjust if needed based on your filename format
+            if label in LABELS:
+                label_index = LABELS.index(label)  # Get the index of the label in the LABELS list
+                print(label_index)
+                # Load the image and apply transformation
+                img_path = os.path.join(input_folder, filename)
+                img = Image.open(img_path).convert("RGB")  # Open image and ensure it has 3 channels
+                tensor = transform(img)
 
-#                 # Append the image tensor and label index to the respective lists
-#                 images.append(tensor)
-#                 targets.append(label_index)
+                # Append the image tensor and label index to the respective lists
+                images.append(tensor)
+                targets.append(label_index)
 
-#     # Stack the images into a single tensor (batch of images)
-#     image_tensor = torch.stack(images)
-#     target_tensor = torch.tensor(targets)  # Convert the list of labels to a tensor
+    # Stack the images into a single tensor (batch of images)
+    image_tensor = torch.stack(images)
+    target_tensor = torch.tensor(targets)  # Convert the list of labels to a tensor
 
-#     # Save the tensors to .pt files
-#     torch.save(image_tensor, os.path.join(PREPROCESSED_DATA_PATH, image_output_file))
-#     torch.save(target_tensor, os.path.join(PREPROCESSED_DATA_PATH, target_output_file))
-#     print(f"Saved image tensor to {os.path.join(PREPROCESSED_DATA_PATH, image_output_file)} and target tensor to {os.path.join(PREPROCESSED_DATA_PATH, target_output_file)}")
+    # Save the tensors to .pt files
+    torch.save(image_tensor, os.path.join(output_folder, image_output_file))
+    torch.save(target_tensor, os.path.join(output_folder, target_output_file))
+    print(f"Saved image tensor to {os.path.join(output_folder, image_output_file)} and target tensor to {os.path.join(PREPROCESSED_DATA_PATH, target_output_file)}")
 
-# # Organize images and convert them to tensors
-# organize_and_rename_images()
+if __name__ == "__main__":
+    # Organize images and convert them to tensors
+    organize_and_rename_images()
 
-# # Convert and save images and targets from train and test folders
-# convert_images_to_tensors('data/processed/train', 'train_images.pt', 'train_targets.pt')
-# convert_images_to_tensors('data/processed/test', 'test_images.pt', 'test_targets.pt')
+    # Convert and save images and targets from train and test folders
+    convert_images_to_tensors('data/processed/train',PREPROCESSED_DATA_PATH, 'train_images.pt', 'train_targets.pt')
+    convert_images_to_tensors('data/processed/test',PREPROCESSED_DATA_PATH, 'test_images.pt', 'test_targets.pt')
