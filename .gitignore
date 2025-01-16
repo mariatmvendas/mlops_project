@@ -67,8 +67,7 @@ coverage.xml
 .hypothesis/
 .pytest_cache/
 cover/
-fake/
-tests/to_delete.py
+mock/
 
 # Translations
 *.mo
