@@ -1,12 +1,15 @@
-name: Trigger on Data Change
+name: Trigger on Model or Training Changes
 
 on:
   push:
     paths:
-      - "data/**"  # Monitorea cambios en la carpeta "data"
+      - "model/**"          # Monitorea cambios en la carpeta model/
+      - "train.py"          # Monitorea cambios en el archivo train.py
+      - "evaluate.py"       # Monitorea cambios en evaluate.py
+      - "data/**"           # Opcional: monitorea cambios en data/
 
 jobs:
-  train:
+  test-and-report:
     runs-on: ubuntu-latest
 
     steps:
@@ -22,9 +25,17 @@ jobs:
       run: |
         pip install -r requirements.txt
 
-    - name: Run CML report
+    - name: Run training script
+      run: |
+        python train.py  # Ejecuta el script de entrenamiento
+
+    - name: Evaluate model
+      run: |
+        python evaluate.py > evaluation_results.txt  # Evalúa el modelo
+
+    - name: Post results to GitHub
       env:
         REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        python train.py > metrics.txt
-        cml send-comment --file metrics.txt
+        cml send-comment --file evaluation_results.txt
+
