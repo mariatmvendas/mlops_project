@@ -5,6 +5,8 @@ rename green area to forest
 run data.py
 run train.py
 
+# test directory
+the directory contains test for src. In order to launch them you need to do pytest tests/
 
 
 # mlops_project
