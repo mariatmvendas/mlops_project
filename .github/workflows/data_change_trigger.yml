@@ -3,10 +3,10 @@ name: Trigger on Model or Training Changes
 on:
   push:
     paths:
-      - "model/**"          # Monitorea cambios en la carpeta model/
-      - "train.py"          # Monitorea cambios en el archivo train.py
-      - "evaluate.py"       # Monitorea cambios en evaluate.py
-      - "data/**"           # Opcional: monitorea cambios en data/
+      - "model/**"          # Monitors changes in the model folder
+      - "train.py"          # Monitors changes in the train.py file
+      - "evaluate.py"       # Monitors changes in the evaluate.py file
+      - "data/**"           # Optional: monitors changes in the data folder
 
 jobs:
   test-and-report:
