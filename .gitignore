@@ -67,6 +67,7 @@ coverage.xml
 .hypothesis/
 .pytest_cache/
 cover/
+mock/
 
 # Translations
 *.mo
@@ -191,3 +192,4 @@ data/raw/forest
 data/raw/water
 /data
 /wandb
+models/model.pth
