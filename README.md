@@ -4,6 +4,9 @@ take the four folders and put them in data/raw
 rename green area to forest
 run data.py
 run train.py
+   train
+   evaluate
+
 
 # test directory
 the directory contains test for src. In order to launch them you need to do pytest tests/

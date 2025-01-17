@@ -132,45 +132,45 @@ def organize_and_rename_images(preprocessed= PREPROCESSED_DATA_PATH, raw_data_pa
             #print(f"Moved and renamed {file_name} to {target_file_name}.")
 
 
-def convert_images_to_tensors(input_folder: str,output_folder: str, image_output_file: str, target_output_file: str) -> None:
+def convert_images_to_tensors(input_folder: str, output_folder: str, image_output_file: str, target_output_file: str, batch_size: int = 100) -> None:
     """
-    Convert images to tensors and save as .pt file.
+    Convert images to tensors in batches and save as .pt file.
 
         Args:
             input_folder (str): Path to the directory of the processed data
             image_output_file (str): Name of the output file of the image tensors
             target_output_file (str): Name of the output file of the target tensors
+            batch_size (int): Number of images to process at once. Defaults to 100.
 
         Returns:
             None
     """
     images = []
     targets = []
+    file_list = [f for f in os.listdir(input_folder) if f.endswith((".jpg", ".png"))]
 
-    for filename in os.listdir(input_folder):
-        if filename.endswith(".jpg") or filename.endswith(".png"):  # Adjust image extensions as needed
-            # Extract the label from the filename (assuming the label is part of the filename)
-            label = filename.split('_')[0]  # Adjust if needed based on your filename format
-            if label in LABELS:
-                label_index = LABELS.index(label)  # Get the index of the label in the LABELS list
-                print(label_index)
-                # Load the image and apply transformation
-                img_path = os.path.join(input_folder, filename)
-                img = Image.open(img_path).convert("RGB")  # Open image and ensure it has 3 channels
-                tensor = transform(img)
+    for i, filename in enumerate(file_list):
+        label = filename.split('_')[0]
+        if label in LABELS:
+            label_index = LABELS.index(label)
+            img_path = os.path.join(input_folder, filename)
+            img = Image.open(img_path).convert("RGB")
+            tensor = transform(img)
 
-                # Append the image tensor and label index to the respective lists
-                images.append(tensor)
-                targets.append(label_index)
+            images.append(tensor)
+            targets.append(label_index)
 
-    # Stack the images into a single tensor (batch of images)
-    image_tensor = torch.stack(images)
-    target_tensor = torch.tensor(targets)  # Convert the list of labels to a tensor
+            # Save batch to file
+            if (i + 1) % batch_size == 0 or i == len(file_list) - 1:
+                image_tensor = torch.stack(images)
+                target_tensor = torch.tensor(targets)
+                torch.save(image_tensor, os.path.join(output_folder, f"batch_{i // batch_size}_{image_output_file}"))
+                torch.save(target_tensor, os.path.join(output_folder, f"batch_{i // batch_size}_{target_output_file}"))
+                images.clear()
+                targets.clear()
 
-    # Save the tensors to .pt files
-    torch.save(image_tensor, os.path.join(output_folder, image_output_file))
-    torch.save(target_tensor, os.path.join(output_folder, target_output_file))
-    print(f"Saved image tensor to {os.path.join(output_folder, image_output_file)} and target tensor to {os.path.join(PREPROCESSED_DATA_PATH, target_output_file)}")
+    print(f"Saved tensors in batches to {output_folder}")
+
 
 if __name__ == "__main__":
     # Organize images and convert them to tensors
