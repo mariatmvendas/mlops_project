@@ -6,7 +6,7 @@ WINDOWS = os.name == "nt"
 PROJECT_NAME = "mlops_project"
 PYTHON_VERSION = "3.11"
 
-# Setup commands
+# Setup commands!
 @task
 def create_environment(ctx: Context) -> None:
     """Create a new conda environment for project."""
