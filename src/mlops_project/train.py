@@ -19,7 +19,7 @@ app = typer.Typer()
 
 # Create logger
 logger.remove()
-logger.add("logs/log_debug.log", level="DEBUG", rotation="100 MB")
+logger.add("logs/log_debug.log", level="DEBUG", rotation="100 KB")
 
 # Check device configuration
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
