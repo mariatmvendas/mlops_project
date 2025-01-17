@@ -9,7 +9,7 @@ steps:
     '-f',
     '/Users/albapi/Documents/GitHub/mlops_project/dockerfiles'
   ]
-- name: 'gcr.io/cloud-builders/docker'
+- name: 'gcr.io/cloud-builders/docker/train.dockerfile'
   id: 'Push container image'
   args: [
     'push',
