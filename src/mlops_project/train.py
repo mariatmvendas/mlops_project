@@ -3,9 +3,26 @@ The file
  1) trains a model to classify the images in data/train and saves a model.pth file
  2) It evaluates on the images of data/test
 
-1) and 2) must be called with typer:
-    python src/mlops_project/train.py train
-    python src/mlops_project/train.py evaluate
+Hyperparameters:
+These must be defined in a .yaml file in the configs folder with the desired values before running any code
+ 1) train function: train_images_path, train_targets_path, batch_size, num_epochs, learning_rate
+ 2) evaluate function: test_images_path, test_targets_path, model_path, batch_size
+
+ The default .yaml file is config.yaml
+ 
+Usage:
+Call the functions in the script with Typer
+This will run with the hyperparameters from the default .yaml file (config.yaml):
+- python train.py train
+- python train.py evaluate
+
+To switch to a different .yaml file run:
+- python train.py train --config exp1
+- python train.py evaluate --config exp1
+
+The .yaml file options are overriden by command line options.
+This will run with the batch_size=3 while the other hyperparameters will follow the default .yaml file (config.yaml):
+- python train.py evaluate --batch-size 3
 
 """
 
