@@ -131,7 +131,7 @@ def train(
 
         typer.echo(f"Epoch [{epoch + 1}/{num_epochs}], Loss: {running_loss / len(dataloader):.4f}")
 
-    torch.save(model.state_dict(), "../../models/model.pth")
+    torch.save(model.state_dict(), "models/model.pth")
     typer.echo("Training complete! Model saved as model.pth")
 
 @app.command()

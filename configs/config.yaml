@@ -1,14 +1,14 @@
 
 
 train:
-  train_images_path: "../../data/processed/train_images.pt"
-  train_targets_path: "../../data/processed/train_targets.pt"
+  train_images_path: "data/processed/train_images.pt"
+  train_targets_path: "data/processed/train_targets.pt"
   batch_size: 8
   num_epochs: 5
   learning_rate: 0.001
 
 evaluate:
-  test_images_path: "../../data/processed/test_images.pt"
-  test_targets_path: "../../data/processed/test_targets.pt"
-  model_path: "../../models/model.pth"
+  test_images_path: "data/processed/test_images.pt"
+  test_targets_path: "data/processed/test_targets.pt"
+  model_path: "models/model.pth"
   batch_size: 8
