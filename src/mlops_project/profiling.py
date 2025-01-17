@@ -17,6 +17,7 @@ visualization with SnakeViz.
 
 e.g. python src/mlops_project/profiling.py src/mlops_project/train.py train --analyze --visualize
 """
+#FIXME profiling results should be saved on appropriate directory
 
 import os
 import subprocess
