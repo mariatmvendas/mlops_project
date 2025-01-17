@@ -1,3 +1,31 @@
+"""
+This script preprocesses image datasets for machine learning workflows. 
+
+It performs the following steps:
+1. **Check Image Sizes**: 
+    - Validates if all images in the `data/raw` folder are of the same size. 
+    - If not, resizes them to the most common size.
+
+2. **Organize and Rename Images**:
+    - Splits images into train/test sets (80% train, 20% test).
+    - Renames images by their labels (e.g., `cloudy_1.jpg`).
+    - Stores the processed images in `data/processed/train` and `data/processed/test`.
+
+3. **Convert Images to Tensors**:
+    - Converts images into PyTorch tensors in batches.
+    - Saves the tensors as `.pt` files (e.g., `train_images.pt` and `train_targets.pt`).
+
+Paths:
+- **RAW_DATA_PATH**: The path containing the raw images (`data/raw`).
+- **PREPROCESSED_DATA_PATH**: The path where processed data is saved (`data/processed`).
+- **LABELS**: A list of predefined image categories (`["cloudy", "desert", "forest", "water"]`).
+
+Usage:
+- Run the script directly to organize images and save them as tensors:
+    `python src/mlops_project/data.py`
+
+"""
+
 import os
 import random
 import torch
