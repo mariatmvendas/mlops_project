@@ -4,7 +4,8 @@ The file
  2) It evaluates on the images of data/test
 
 1) and 2) must be called with typer
-
+    python src/mlops_project/train.py train
+    python src/mlops_project/train.py evaluate
 """
 
 import typer
