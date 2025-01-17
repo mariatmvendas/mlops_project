@@ -190,4 +190,6 @@ data/raw/cloudy
 data/raw/desert
 data/raw/forest
 data/raw/water
-/data
+
+
+models/model.pth
