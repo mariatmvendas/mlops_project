@@ -3,9 +3,7 @@ The file
  1) trains a model to classify the images in data/train and saves a model.pth file
  2) It evaluates on the images of data/test
 
-1) and 2) must be called with typer:
-    python src/mlops_project/train.py train
-    python src/mlops_project/train.py evaluate
+1) and 2) must be called with typer
 
 """
 
@@ -16,6 +14,11 @@ import torch.optim as optim
 from torch.utils.data import DataLoader, TensorDataset
 from loguru import logger
 import timm
+import wandb
+import os
+from dotenv import load_dotenv
+from hydra import initialize, compose
+
 
 app = typer.Typer()
 
@@ -23,9 +26,15 @@ app = typer.Typer()
 logger.remove()
 logger.add("logs/log_debug.log", level="DEBUG", rotation="100 KB")
 
+# Wandb configuration
+load_dotenv()
+wandb_api_key = os.getenv("WANDB_API_KEY")
+wandb.login(key=wandb_api_key)
+
 # Check device configuration
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 logger.debug(f"Used device: {device}")
+
 
 def train_dataloader_satellite():
     train_images_path: str = "data/processed/train_images.pt"
@@ -34,13 +43,17 @@ def train_dataloader_satellite():
     train_targets = torch.load(train_targets_path, weights_only=True)
     return train_images, train_targets
 
+
 @app.command()
 def train(
-    train_images_path: str = "data/processed/train_images.pt",
-    train_targets_path: str = "data/processed/train_targets.pt",
-    batch_size: int = 8,
-    num_epochs: int = 5,
-    learning_rate: float = 0.001) -> None:
+    config: str = typer.Option("config", help="Path to the config file", show_default=True),
+    train_images_path: str = typer.Option(None, help="Path to the train images"),
+    train_targets_path: str = typer.Option(None, help="Path to the train targets"),
+    batch_size: int = typer.Option(None, help="Batch size for training"),
+    learning_rate: float = typer.Option(None, help="Learning rate for optimizer"),
+    num_epochs: int = typer.Option(None, help="Number of epochs for training")):
+
+
     """
     Train the model.
 
@@ -55,6 +68,30 @@ def train(
             None
 
     """
+    # Initialize wandb
+    run = wandb.init(
+        project="mlops_project",
+        job_type="train",
+        config={"learning_rate": learning_rate, "batch_size": batch_size, "num_epochs": num_epochs})
+
+    with initialize(config_path="../../configs",job_name="test_app"):
+        cfg = compose(config_name=config)
+
+    # Override values from config with command-line options if provided
+    train_images_path = train_images_path or cfg.train["train_images_path"]
+    train_targets_path = train_targets_path or cfg.train["train_targets_path"]
+    batch_size = batch_size or cfg.train["batch_size"]
+    learning_rate = learning_rate or cfg.train["learning_rate"]
+    num_epochs = num_epochs or cfg.train["num_epochs"]
+
+    typer.echo(f"Configuration used for training:")
+    typer.echo(f"  Train Images Path: {train_images_path}")
+    typer.echo(f"  Train Targets Path: {train_targets_path}")
+    typer.echo(f"  Batch Size: {batch_size}")
+    typer.echo(f"  Learning Rate: {learning_rate}")
+    typer.echo(f"  Number of Epochs: {num_epochs}")
+
+
     # Load training data
     try:
         train_images = torch.load(train_images_path, weights_only=True)
@@ -74,9 +111,9 @@ def train(
         train_images = torch.stack([img.permute(2, 0, 1) for img in train_images])
 
     # Use a subset of data for debugging (optional)
-    subset_size = 20  # Adjust this as needed for debugging
-    train_images = train_images[:subset_size]
-    train_targets = train_targets[:subset_size]
+    # subset_size = 1000  # Adjust this as needed for debugging
+    # train_images = train_images[:subset_size]
+    # train_targets = train_targets[:subset_size]
 
     # Create Dataset and DataLoader
     dataset = TensorDataset(train_images, train_targets)
@@ -104,18 +141,21 @@ def train(
             loss.backward()
             optimizer.step()
             running_loss += loss.item()
+            wandb.log({"train_loss": loss.item()})
 
         typer.echo(f"Epoch [{epoch + 1}/{num_epochs}], Loss: {running_loss / len(dataloader):.4f}")
 
-    torch.save(model.state_dict(), "models/model.pth")
-    typer.echo("Training complete! Model saved as model.pth")
+    torch.save(model.state_dict(), "../../models/model.pth")
+    typer.echo("Training complete! Model saved as model.pth and run logged on W&B.")
 
 @app.command()
 def evaluate(
-    test_images_path: str = "data/processed/test_images.pt",
-    test_targets_path: str = "data/processed/test_targets.pt",
-    model_path: str = "models/model.pth",
-    batch_size: int = 8) -> None:
+    config: str = typer.Option("config", help="Path to the config file", show_default=True),
+    test_images_path: str = typer.Option(None, help="Path to the test images"),
+    test_targets_path: str = typer.Option(None, help="Path to the test targets"),
+    batch_size: int = typer.Option(None, help="Batch size for evaluating"),
+    model_path: int = typer.Option(None, help="Model path for evaluating")):
+
     """
     Evaluate the model.
 
@@ -129,6 +169,28 @@ def evaluate(
             None
 
     """
+    # Initialize wandb
+    run = wandb.init(
+        project="mlops_project",
+        job_type="evaluate",
+        config={"batch_size": batch_size})
+
+    with initialize(config_path="../../configs",job_name="test_app"):
+        cfg = compose(config_name=config)
+
+    # Override values from config with command-line options if provided
+    test_images_path = test_images_path or cfg.evaluate["test_images_path"]
+    test_targets_path = test_targets_path or cfg.evaluate["test_targets_path"]
+    batch_size = batch_size or cfg.evaluate["batch_size"]
+    model_path = model_path or cfg.evaluate["model_path"]
+
+    typer.echo(f"Configuration used for evaluating:")
+    typer.echo(f"  Test Images Path: {test_images_path}")
+    typer.echo(f"  Test Targets Path: {test_targets_path}")
+    typer.echo(f"  Batch Size: {batch_size}")
+    typer.echo(f"  Model Path: {model_path}")
+
+
     # Load test data
     try:
         test_images = torch.load(test_images_path, weights_only=True)
@@ -172,6 +234,16 @@ def evaluate(
     accuracy = 100 * correct / total
     typer.echo(f"Accuracy on test set: {accuracy:.2f}%")
     logger.debug(f"Accuracy on test set: {accuracy:.2f}%")
+    wandb.log({"validation_accuracy": accuracy})
+
+    artifact = wandb.Artifact(
+        name="mlops_project",
+        type="model",
+        description="A model trained to classify satellite images",
+        metadata={"validation_accuracy": accuracy},
+    )
+    artifact.add_file("models/model.pth")
+    run.log_artifact(artifact)
 
 if __name__ == "__main__":
     app()

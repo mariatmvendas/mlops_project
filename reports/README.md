@@ -66,8 +66,8 @@ will check the repositories and the code to verify your answers.
 * [ ] Used Hydra to load the configurations and manage your hyperparameters (M11)
 * [x] Use profiling to optimize your code (M12)
 * [x] Use logging to log important events in your code (M14)
-* [ ] Use Weights & Biases to log training progress and other important metrics/artifacts in your code (M14)
-* [ ] Consider running a hyperparameter optimization sweep (M14)
+* [x] Use Weights & Biases to log training progress and other important metrics/artifacts in your code (M14)
+* [x] Consider running a hyperparameter optimization sweep (M14)
 * [ ] Use PyTorch-lightning (if applicable) to reduce the amount of boilerplate in your code (M15)
 
 ### Week 2
@@ -336,7 +336,11 @@ We made use of both branches and pull requests in our project. In our group we d
 >
 > Answer:
 
---- question 14 fill here ---
+---
+We leveraged wandb to track and log our experiments and to present resulting graphs automatically. As seen in the first image 'WandB log train_loss.png', we have tracked the training loss over time in order to verify convergence of the loss curve. This tracking was clearly executed during model training. On the second image 'WandB log validation_accuracy.png' the accuracy of the trained model is depicted which is evaluated on the validation data set. This metric is automatically getting logged when executing the evaluation function. The validation accuracy is important to evaluate the actual performance of the model, since it is impractical to evaluate on the training dataset for obvious reasons. The first and the second image were created with the whole dataset.
+Moreover, we created an artifact for the validation accuracy and tracked it on wandb. This can be leveraged for further experiments.
+Last but not least, we performed a hyperparameter optimization sweep on wandb to see which hyperparameter configuration fits the best for our model. This can be seen on the third image 'WandB hyperparameter sweep.png' with all the sweep configurations and the logged training loss as a performance metric. For feasible runtimes on our local machines, we trained with the sweep agent only on approximately one quarter of the data set.
+---
 
 ### Question 15
 
@@ -592,4 +596,10 @@ Furthermore, we create loggings of model parameters and the used device and save
 > *We have used ChatGPT to help debug our code. Additionally, we used GitHub Copilot to help write some of our code.*
 > Answer:
 
---- question 31 fill here ---
+---
+Student s242186 was in charge of good coding practices like linting, typing and docstrings. Additionally, the student developed docker files, images and containers. The student also was in charge of logging with log files, wandb logging and artefacts and wandb hyperparameter sweeps. In addition, this student created unit tests for model, training and evaluation and calculated code coverage and was in charge for implementing pre-commit hooks.
+Student sXXXXXX ...
+Student sXXXXXX ...
+Student sXXXXXX ...
+Student sXXXXXX ...
+---

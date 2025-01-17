@@ -1,0 +1,19 @@
+steps:
+- name: 'gcr.io/cloud-builders/docker'
+  id: 'Build container image'
+  args: [
+    'build',
+    '.',
+    '-t',
+    'europe-west1-docker.pkg.dev/$dtumlops-448109/europe-west1-docker.pkg.dev/dtumlops-448109/mlops-container/mlops-image',
+    '-f',
+    '/Users/albapi/Documents/GitHub/mlops_project/dockerfiles'
+  ]
+- name: 'gcr.io/cloud-builders/docker/train.dockerfile'
+  id: 'Push container image'
+  args: [
+    'push',
+    'europe-west1-docker.pkg.dev/$dtumlops-448109/europe-west1-docker.pkg.dev/dtumlops-448109/mlops-container/mlops-image'
+  ]
+options:
+  logging: CLOUD_LOGGING_ONLY
