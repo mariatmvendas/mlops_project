@@ -1,17 +1,21 @@
-program: train.py
-name: sweepdemo
-project: my_project  # change this
-entity: my_entity  # change this
+program: src/mlops_project/train.py
+command:
+  - "${env}"
+  - "${interpreter}"
+  - "src/mlops_project/train.py"
+  - "train"
+
+name: hyperparameter_sweep
+project: mlops_project
+method: grid
 metric:
     goal: minimize
-    name: validation_loss
+    name: train_loss
 parameters:
     learning_rate:
-        min: 0.0001
-        max: 0.1
-        distribution: log_uniform
+        values: [0.01, 0.001, 0.0001]
     batch_size:
-        values: [16, 32, 64]
+        values: [8, 16]
     epochs:
-        values: [5, 10, 15]
-run_cap: 10
+        values: [5, 10]
+run_cap: 15
