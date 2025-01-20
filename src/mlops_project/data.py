@@ -207,3 +207,56 @@ if __name__ == "__main__":
     # Convert and save images and targets from train and test folders
     convert_images_to_tensors('data/processed/train',PREPROCESSED_DATA_PATH, 'train_images.pt', 'train_targets.pt')
     convert_images_to_tensors('data/processed/test',PREPROCESSED_DATA_PATH, 'test_images.pt', 'test_targets.pt')
+
+
+""""
+This script is used to use PyTorch LightningDataModule to manage your dataset, loading images and labels from your CSV files.
+
+"""
+
+import os
+import pandas as pd
+from torch.utils.data import Dataset, DataLoader
+from torchvision import transforms
+from PIL import Image
+import pytorch_lightning as pl
+
+class SatelliteDataset(Dataset):
+    def __init__(self, csv_file, img_dir, transform=None):
+        self.data = pd.read_csv(csv_file)
+        self.img_dir = img_dir
+        self.transform = transform
+
+    def __len__(self):
+        return len(self.data)
+
+    def __getitem__(self, idx):
+        img_name = os.path.join(self.img_dir, self.data.iloc[idx, 0])
+        image = Image.open(img_name).convert('RGB')
+        label = self.data.iloc[idx, 1]
+        if self.transform:
+            image = self.transform(image)
+        return image, label
+
+class SatelliteDataModule(pl.LightningDataModule):
+    def __init__(self, train_csv, test_csv, img_dir, batch_size=32):
+        super().__init__()
+        self.train_csv = train_csv
+        self.test_csv = test_csv
+        self.img_dir = img_dir
+        self.batch_size = batch_size
+        self.transform = transforms.Compose([
+            transforms.Resize((128, 128)),
+            transforms.ToTensor(),
+            transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
+        ])
+
+    def setup(self, stage=None):
+        self.train_dataset = SatelliteDataset(self.train_csv, self.img_dir, self.transform)
+        self.test_dataset = SatelliteDataset(self.test_csv, self.img_dir, self.transform)
+
+    def train_dataloader(self):
+        return DataLoader(self.train_dataset, batch_size=self.batch_size, shuffle=True)
+
+    def test_dataloader(self):
+        return DataLoader(self.test_dataset, batch_size=self.batch_size)

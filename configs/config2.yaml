@@ -1,0 +1,12 @@
+data:
+  train_csv: "./data/raw/train_labels.csv"
+  test_csv: "./data/raw/test_labels.csv"
+  img_dir: "./data/raw/train_images"
+  batch_size: 32
+
+model:
+  learning_rate: 0.001
+
+trainer:
+  max_epochs: 10
+  gpus: 1

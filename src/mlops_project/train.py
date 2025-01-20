@@ -287,3 +287,26 @@ if __name__ == "__main__":
 # print(prof.key_averages(group_by_input_shape=True).table(sort_by="self_cpu_memory_usage", row_limit=30))
 
 # prof.export_chrome_trace("trace.json")
+
+""""
+This script 
+
+"""
+
+from pytorch_lightning import Trainer
+from mlops_project.data import SatelliteDataModule
+from mlops_project.model import SatelliteModel
+
+def train_model():
+    data_module = SatelliteDataModule(
+        train_csv="./data/raw/train_labels.csv",
+        test_csv="./data/raw/test_labels.csv",
+        img_dir="./data/raw/train_images",
+        batch_size=32
+    )
+    model = SatelliteModel(learning_rate=0.001)
+    trainer = Trainer(max_epochs=10, gpus=1)
+    trainer.fit(model, datamodule=data_module)
+
+if __name__ == "__main__":
+    train_model()
