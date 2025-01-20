@@ -1,0 +1,41 @@
+name: Model Registry Workflow
+
+on:
+  push:
+    paths:
+      - "models/**"  # Monitor changes in the "models" folder
+
+jobs:
+  model_change:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Clone the repository
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Python environment
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.8"
+
+      # Step 3: Install required dependencies
+      - name: Install Dependencies
+        run: |
+          pip install -r requirements.txt
+
+      # Step 4: Retrain the model
+      - name: Retrain Model
+        run: |
+          python src/mlops_project/train.py
+
+      # Step 5: (Optional) Evaluate the model
+      - name: Evaluate Model
+        run: |
+          python src/mlops_project/evaluate.py
+
+      # Step 6: (Optional) Generate metrics report
+      - name: Generate Metrics Report
+        run: |
+          python src/mlops_project/visualize.py
