@@ -289,7 +289,7 @@ if __name__ == "__main__":
 # prof.export_chrome_trace("trace.json")
 
 """"
-This script 
+This script use the model and the data module to start the training.
 
 """
 
