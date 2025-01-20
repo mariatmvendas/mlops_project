@@ -14,16 +14,16 @@ These must be defined in a .yaml file in the configs folder with the desired val
 Usage:
 Call the functions in the script with Typer
 This will run with the hyperparameters from the default .yaml file (config.yaml):
-- python train.py train
-- python train.py evaluate
+- python src/mlops_project/train.py train
+- python src/mlops_project/train.py evaluate
 
 To switch to a different .yaml file run:
-- python train.py train --config exp1
-- python train.py evaluate --config exp1
+- python src/mlops_project/train.py train --config exp1
+- python src/mlops_project/train.py evaluate --config exp1
 
 The .yaml file options are overriden by command line options.
 This will run with the batch_size=3 while the other hyperparameters will follow the default .yaml file (config.yaml):
-- python train.py evaluate --batch-size 3
+- python src/mlops_project/train.py evaluate --batch-size 3
 
 
 """
