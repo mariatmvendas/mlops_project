@@ -1,3 +1,10 @@
+
+import numpy as np  # Import numpy first to avoid threading conflicts
+import argparse
+import torch
+import timm
+from torchvision import transforms
+from PIL import Image
 import argparse
 import torch
 import timm
@@ -6,6 +13,9 @@ from PIL import Image
 
 # Device configuration
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+# Labels for the classification
+LABELS = ["cloudy", "desert", "forest", "water"]
 
 # Define a function to load the model
 def load_model(model_path: str = "models/model.pth"):
@@ -16,7 +26,7 @@ def load_model(model_path: str = "models/model.pth"):
     Returns:
         torch.nn.Module: The loaded model.
     """
-    model = timm.create_model("resnet18", pretrained=True, num_classes=4)  # Adjust `num_classes` as per your model
+    model = timm.create_model("resnet18", pretrained=True, num_classes=len(LABELS))  # Adjust `num_classes` as per your model
     model.load_state_dict(torch.load(model_path, map_location=device))
     model = model.to(device)
     model.eval()
@@ -49,13 +59,13 @@ def predict(model, image_tensor):
         model (torch.nn.Module): The trained model.
         image_tensor (torch.Tensor): The preprocessed image tensor.
     Returns:
-        int: The predicted class index.
+        str: The predicted class label.
     """
     image_tensor = image_tensor.to(device)
     with torch.no_grad():
         output = model(image_tensor)
         _, predicted_class = torch.max(output, 1)
-    return predicted_class.item()
+    return LABELS[predicted_class.item()]  # Map the predicted class index to the label
 
 # Main function
 if __name__ == "__main__":
@@ -74,5 +84,5 @@ if __name__ == "__main__":
     image_tensor = preprocess_image(args.image_path)
     
     # Make a prediction
-    predicted_class = predict(model, image_tensor)
-    print(f"Predicted class: {predicted_class}")
+    predicted_label = predict(model, image_tensor)
+    print(f"Predicted label: {predicted_label}")

@@ -1,54 +1,22 @@
 import subprocess
-from contextlib import asynccontextmanager
-import os
-import torch
 from fastapi import FastAPI, File, UploadFile
 from PIL import Image
-from transformers import AutoTokenizer, VisionEncoderDecoderModel, ViTFeatureExtractor
+import os
 
-# Lifespan function to load models
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-    """Load and clean up models on startup and shutdown."""
-    global caption_model, feature_extractor, tokenizer, device, gen_kwargs
-    print("Loading models...")
-
-    # Load captioning model
-    caption_model = VisionEncoderDecoderModel.from_pretrained("nlpconnect/vit-gpt2-image-captioning")
-    feature_extractor = ViTFeatureExtractor.from_pretrained("nlpconnect/vit-gpt2-image-captioning")
-    tokenizer = AutoTokenizer.from_pretrained("nlpconnect/vit-gpt2-image-captioning")
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    caption_model.to(device)
-    gen_kwargs = {"max_length": 16, "num_beams": 8, "num_return_sequences": 1}
-
-    yield
-
-    print("Cleaning up models...")
-    del caption_model, feature_extractor, tokenizer, device, gen_kwargs
-
-
-# Initialize FastAPI app
-app = FastAPI(lifespan=lifespan)
-
+app = FastAPI()
 
 @app.get("/")
 async def root():
-    """Root endpoint to confirm the API is running."""
-    return {"message": "Welcome to the Image Captioning and Satellite Inference API!"}
-
-
-@app.post("/caption/")
-async def caption(data: UploadFile = File(...)):
-    """Generate a caption for an image."""
-    i_image = Image.open(data.file)
-    if i_image.mode != "RGB":
-        i_image = i_image.convert(mode="RGB")
-
-    pixel_values = feature_extractor(images=[i_image], return_tensors="pt").pixel_values
-    pixel_values = pixel_values.to(device)
-    output_ids = caption_model.generate(pixel_values, **gen_kwargs)
-    preds = tokenizer.batch_decode(output_ids, skip_special_tokens=True)
-    return {"caption": preds[0].strip()}
+    """
+    Root endpoint to explain how to use the API and provide inference capabilities.
+    """
+    return {
+        "message": "Welcome to the Satellite Inference API!",
+        "instructions": {
+            "satellite_inference": "Use the POST /inference_satellite/ endpoint with an image file to classify the image.",
+            "example_curl": "curl -X POST 'http://127.0.0.1:8000/inference_satellite/' -H 'Content-Type: multipart/form-data' -F 'data=@path_to_your_image.jpg'"
+        }
+    }
 
 
 @app.post("/inference_satellite/")
@@ -62,12 +30,13 @@ async def inference_satellite(data: UploadFile = File(...)):
     i_image.save(temp_image_path)
 
     try:
-        # Call the inference script
+        # Call the inference script with MKL_THREADING_LAYER environment variable
         result = subprocess.run(
             ["python", "src/mlops_project/inference.py", temp_image_path],
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
             text=True,
+            env={**os.environ, "MKL_THREADING_LAYER": "GNU"}  # Set threading layer to GNU
         )
 
         # Check for errors in the subprocess
