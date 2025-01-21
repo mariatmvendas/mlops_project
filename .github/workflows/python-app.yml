@@ -32,7 +32,6 @@ jobs:
         python-version: ${{ matrix.python-version }}
         cahe: 'pip'
 
-    - uses: iterative/setup-cml@v1
 
     - name: Install dependencies
       run: |
