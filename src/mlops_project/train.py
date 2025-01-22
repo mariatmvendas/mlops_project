@@ -25,13 +25,6 @@ The .yaml file options are overriden by command line options.
 This will run with the batch_size=3 while the other hyperparameters will follow the default .yaml file (config.yaml):
 - python src/mlops_project/train.py evaluate --batch-size 3
 
-WandB logging:
-If tracking via Weights & Biases should be enabled, one has to create an account on www.wandb.ai, copy the personal api key
-and insert it into a local .env file with 'WANDB_API_KEY=<api_key>' in the root directory.
-
-WandB hyperparameter sweep:
-Execute 'wandb sweep configs/sweep.yaml' in bash, this will give an ID which can be used afterwards in 'wandb agent <sweep_id>'
-
 """
 
 import typer
