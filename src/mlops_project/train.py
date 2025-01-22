@@ -132,9 +132,9 @@ def train(
         train_images = torch.stack([img.permute(2, 0, 1) for img in train_images])
 
     # Use a subset of data for debugging (optional)
-    # subset_size = 1000  # Adjust this as needed for debugging
-    # train_images = train_images[:subset_size]
-    # train_targets = train_targets[:subset_size]
+    subset_size = 500  # Adjust this as needed for debugging
+    train_images = train_images[:subset_size]
+    train_targets = train_targets[:subset_size]
 
     # Create Dataset and DataLoader
     dataset = TensorDataset(train_images, train_targets)
