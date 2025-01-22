@@ -1,3 +1,36 @@
+"""
+Image Classification Inference Script
+
+This script performs image classification using a pre-trained deep learning model. 
+It accepts an input image, preprocesses it, and uses a ResNet-based model to predict 
+one of the predefined class labels: "cloudy", "desert", "forest", or "water".
+
+Key Features:
+1. **Model Loading**:
+   - Loads a pre-trained ResNet model with weights from the specified path (`models/model.pth`).
+   - Adjusts the model to classify images into the specified number of classes.
+
+2. **Image Preprocessing**:
+   - Resizes the input image to match the model's required dimensions (224x224 pixels).
+   - Converts the image to a tensor and normalizes it using ImageNet statistics.
+
+3. **Prediction**:
+   - Runs the model in evaluation mode to infer the class label.
+   - Maps the output of the model to one of the predefined class labels.
+
+4. **Device Compatibility**:
+   - Automatically detects whether a GPU (CUDA) is available and uses it for inference; otherwise, defaults to CPU.
+
+5. **Command-Line Interface**:
+   - Accepts the input image path as a command-line argument.
+   - Outputs the predicted class label to the console.
+
+Usage:
+1. Ensure the model file (`models/model.pth`) and input image are available.
+2. Run the script from the command line:
+   ```bash
+   python inference.py path_to_image.jpg
+
 
 import numpy as np  # Import numpy first to avoid threading conflicts
 import argparse
