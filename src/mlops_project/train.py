@@ -3,14 +3,14 @@ This script
  1) trains a model to classify the train images in data/processed and saves a model.pth file to the models folder
  2) evaluates the model saved on a given path on the test images of data/processed by calculating accuracy
 
- 
+
 Hyperparameters:
 These must be defined in a .yaml file in the configs folder with the desired values before running any code
  1) train function: train_images_path, train_targets_path, batch_size, num_epochs, learning_rate
  2) evaluate function: test_images_path, test_targets_path, model_path, batch_size
 
  The default .yaml file is config.yaml
- 
+
 Usage:
 Call the functions in the script with Typer
 This will run with the hyperparameters from the default .yaml file (config.yaml):
@@ -24,7 +24,6 @@ To switch to a different .yaml file run:
 The .yaml file options are overriden by command line options.
 This will run with the batch_size=3 while the other hyperparameters will follow the default .yaml file (config.yaml):
 - python src/mlops_project/train.py evaluate --batch-size 3
-
 
 """
 
@@ -50,7 +49,11 @@ logger.add("logs/log_debug.log", level="DEBUG", rotation="100 KB")
 # Wandb configuration
 load_dotenv()
 wandb_api_key = os.getenv("WANDB_API_KEY")
-wandb.login(key=wandb_api_key)
+if wandb_api_key:
+    wandb.login(key=wandb_api_key)
+else:
+    typer.echo("Warning: WANDB_API_KEY is not set. Wandb logging will be disabled.")
+    wandb.init(mode="disabled")
 
 # Check device configuration
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -132,7 +135,7 @@ def train(
         train_images = torch.stack([img.permute(2, 0, 1) for img in train_images])
 
     # Use a subset of data for debugging (optional)
-    subset_size = 100  # Adjust this as needed for debugging
+    subset_size = 20 # Adjust this as needed for debugging
     train_images = train_images[:subset_size]
     train_targets = train_targets[:subset_size]
 
