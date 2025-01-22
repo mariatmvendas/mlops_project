@@ -4,6 +4,11 @@ take the four folders and put them in data/raw
 rename green area to forest
 run data.py
 run train.py
+   train
+   evaluate
+
+# src directory
+contains data.py to preprocess data, train.py to train the model and evaluate it, profiling.py to profile the model.
 
 # test directory
 the directory contains test for src. In order to launch them you need to do pytest tests/
