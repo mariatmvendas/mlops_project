@@ -545,7 +545,7 @@ For our project we developed one docker image for both training and evaluation o
 > Answer:
 
 ---
-We implemented a pre-commit hook that automatically checks for styling and formatting of the provided files before actually committing it, this helps us to comply with good coding style guidelines.
+> We implemented a pre-commit hook that automatically checks for styling and formatting of the provided files before actually committing it, this helps us to comply with good coding style guidelines.
 Furthermore, we create loggings of model parameters and the used device and save them in a log file for debugging. This can be found in the 'logs/log_debug.log' directory.
 ---
 
