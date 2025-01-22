@@ -118,9 +118,9 @@ will check the repositories and the code to verify your answers.
 >
 > Answer:
 
----
+
 29
----
+
 
 ### Question 2
 > **Enter the study number for each member in the group**
@@ -131,9 +131,9 @@ will check the repositories and the code to verify your answers.
 >
 > Answer:
 
----
-s242186, sXXXXXX, sXXXXXX, sXXXXXX, sXXXXXX
----
+
+s242186, s243280, s242906, s241925, sXXXXXX
+
 
 ### Question 3
 > **A requirement to the project is that you include a third-party package not covered in the course. What framework**
@@ -198,9 +198,9 @@ s242186, sXXXXXX, sXXXXXX, sXXXXXX, sXXXXXX
 >
 > Answer:
 
----
+
 We used extensive docstrings on important functions as well as typing for documentation. We also used ruff for linting to align with the pep8 style guidelines. Besides that, we also implemented formatting rules and a ruff checker as pre-commit hooker. Clearly, this is particulary beneficial in larger projects, since many people with different backgrounds are working on the same code files, so readability and consistency are key factors for having clean project source code. For example, when working on some new features and the developer wants to integrate this new feature in the main codebase, he most likely will do a pull request to let his coworkers peer-review the latest changes. So it is crucial that everyone understands newly written code easily and is thus able to review.
----
+
 
 ## Version control
 
@@ -219,9 +219,9 @@ We used extensive docstrings on important functions as well as typing for docume
 >
 > Answer:
 
----
+
 In total we have implemented 4 tests. Primarily we are testing the data.py and train.py files, those include our whole deep learning pipeline. In particular, we tested if the model has the correct number of classes and the correct output shape, if the training function outputs a model.pth file in the correct directory and if the evaluation function gives out a feasible number as accuracy.
----
+
 
 ### Question 8
 
@@ -251,9 +251,9 @@ In total we have implemented 4 tests. Primarily we are testing the data.py and t
 >
 > Answer:
 
----
+
 We made use of both branches and pull requests in our project. In our group we decided to not split up the branches member-wise, but rather create branches for the features we are working on. That means, every time someone is working on a new feature, this person creates a new branch to work on and afterwards come up with a pull request to merge and integrate the feature branch to the main branch. The decision to work on different branches came up during the project and was adapted since then. We also investigated that using feature branches instead of member branches is a good habit to keep in mind for future projects.
----
+
 
 ### Question 10
 
@@ -336,11 +336,11 @@ We made use of both branches and pull requests in our project. In our group we d
 >
 > Answer:
 
----
+
 We leveraged wandb to track and log our experiments and to present resulting graphs automatically. As seen in the first image 'WandB log train_loss.png', we have tracked the training loss over time in order to verify convergence of the loss curve. This tracking was clearly executed during model training. On the second image 'WandB log validation_accuracy.png' the accuracy of the trained model is depicted which is evaluated on the validation data set. This metric is automatically getting logged when executing the evaluation function. The validation accuracy is important to evaluate the actual performance of the model, since it is impractical to evaluate on the training dataset for obvious reasons. The first and the second image were created with the whole dataset.
 Moreover, we created an artifact for the validation accuracy and tracked it on wandb. This can be leveraged for further experiments.
 Last but not least, we performed a hyperparameter optimization sweep on wandb to see which hyperparameter configuration fits the best for our model. This can be seen on the third image 'WandB hyperparameter sweep.png' with all the sweep configurations and the logged training loss as a performance metric. For feasible runtimes on our local machines, we trained with the sweep agent only on approximately one quarter of the data set.
----
+
 
 ### Question 15
 
@@ -495,7 +495,7 @@ For our project we developed one docker image for both training and evaluation o
 
 --- question 25 fill here ---
 
-### Question 26
+### Question 26 A
 
 > **Did you manage to implement monitoring of your deployed model? If yes, explain how it works. If not, explain how**
 > **monitoring would help the longevity of your application.**
@@ -543,10 +543,10 @@ For our project we developed one docker image for both training and evaluation o
 >
 > Answer:
 
----
+
 We implemented a pre-commit hook that automatically checks for styling and formatting of the provided files before actually committing it, this helps us to comply with good coding style guidelines.
 Furthermore, we create loggings of model parameters and the used device and save them in a log file for debugging. This can be found in the 'logs/log_debug.log' directory.
----
+
 
 ### Question 29
 
@@ -595,10 +595,10 @@ Furthermore, we create loggings of model parameters and the used device and save
 > *We have used ChatGPT to help debug our code. Additionally, we used GitHub Copilot to help write some of our code.*
 > Answer:
 
----
+
 Student s242186 was in charge of good coding practices like linting, typing and docstrings. Additionally, the student developed docker files, images and containers. The student also was in charge of logging with log files, wandb logging and artefacts and wandb hyperparameter sweeps. In addition, this student created unit tests for model, training and evaluation and calculated code coverage and was in charge for implementing pre-commit hooks.
 Student sXXXXXX ...
 Student sXXXXXX ...
 Student sXXXXXX ...
 Student sXXXXXX ...
----
+
