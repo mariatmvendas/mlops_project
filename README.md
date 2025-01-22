@@ -13,6 +13,15 @@ contains data.py to preprocess data, train.py to train the model and evaluate it
 # test directory
 the directory contains test for src. In order to launch them you need to do pytest tests/
 
+# API
+
+# W&B
+- Logging:
+If tracking via Weights & Biases should be enabled, one has to create an account on www.wandb.ai, copy the personal api key
+and insert it into a local .env file in the root directory. The .env file should now contain 'WANDB_API_KEY=<api_key>'.
+- Hyperparameter sweep:
+Execute 'wandb sweep configs/sweep.yaml' in bash, this will give out an ID which can be used afterwards in
+'wandb agent <sweep_id>' to start the optimization sweep.
 
 # mlops_project
 
@@ -84,4 +93,3 @@ We aim to perform a multi-class image classification task using CNN-based archit
 Created using [mlops_template](https://github.com/SkafteNicki/mlops_template),
 a [cookiecutter template](https://github.com/cookiecutter/cookiecutter) for getting
 started with Machine Learning Operations (MLOps).
-

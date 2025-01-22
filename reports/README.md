@@ -59,29 +59,29 @@ will check the repositories and the code to verify your answers.
 * [x] Remember to comply with good coding practices (`pep8`) while doing the project (M7)
 * [x] Do a bit of code typing and remember to document essential parts of your code (M7)
 * [x] Setup version control for your data or part of your data (M8)
-* [ ] Add command line interfaces and project commands to your code where it makes sense (M9)
+* [x] Add command line interfaces and project commands to your code where it makes sense (M9)
 * [x] Construct one or multiple docker files for your code (M10)
 * [x] Build the docker files locally and make sure they work as intended (M10)
-* [ ] Write one or multiple configurations files for your experiments (M11)
-* [ ] Used Hydra to load the configurations and manage your hyperparameters (M11)
+* [x] Write one or multiple configurations files for your experiments (M11)
+* [x] Used Hydra to load the configurations and manage your hyperparameters (M11)
 * [x] Use profiling to optimize your code (M12)
 * [x] Use logging to log important events in your code (M14)
 * [x] Use Weights & Biases to log training progress and other important metrics/artifacts in your code (M14)
 * [x] Consider running a hyperparameter optimization sweep (M14)
-* [ ] Use PyTorch-lightning (if applicable) to reduce the amount of boilerplate in your code (M15)
+* [x] Use PyTorch-lightning (if applicable) to reduce the amount of boilerplate in your code (M15)
 
 ### Week 2
 
-* [ ] Write unit tests related to the data part of your code (M16)
+* [x] Write unit tests related to the data part of your code (M16)
 * [x] Write unit tests related to model construction and or model training (M16)
 * [ ] Calculate the code coverage (M16)
 * [ ] Get some continuous integration running on the GitHub repository (M17)
 * [ ] Add caching and multi-os/python/pytorch testing to your continuous integration (M17)
 * [ ] Add a linting step to your continuous integration (M17)
 * [x] Add pre-commit hooks to your version control setup (M18)
-* [ ] Add a continues workflow that triggers when data changes (M19)
+* [x] Add a continues workflow that triggers when data changes (M19)
 * [ ] Add a continues workflow that triggers when changes to the model registry is made (M19)
-* [ ] Create a data storage in GCP Bucket for your data and link this with your data version control setup (M21)
+* [x] Create a data storage in GCP Bucket for your data and link this with your data version control setup (M21)
 * [ ] Create a trigger workflow for automatically building your docker images (M21)
 * [ ] Get your model training in GCP using either the Engine or Vertex AI (M21)
 * [ ] Create a FastAPI application that can do inference using your model (M22)
@@ -131,9 +131,15 @@ will check the repositories and the code to verify your answers.
 >
 > Answer:
 
+<<<<<<< HEAD
+---
+s242186, s243299, sXXXXXX, sXXXXXX, sXXXXXX
+---
+=======
 
 s242186, s243280, s242906, s241925, sXXXXXX
 
+>>>>>>> 5c5c91ae78bcd5ee394bd7fd09d79db984cbf976
 
 ### Question 3
 > **A requirement to the project is that you include a third-party package not covered in the course. What framework**
@@ -563,7 +569,13 @@ Furthermore, we create loggings of model parameters and the used device and save
 >
 > Answer:
 
---- question 29 fill here ---
+--- 
+The starting point of the diagram is our local setup, where we use data.py for preprocessing and preparing data. We train models using train.py and track metrics like loss and accuracy using Weights & Biases (W&B).
+Whenever we commit and push changes to GitHub, it automatically triggers workflows using GitHub Actions:
+- Continuous Integration (CI) runs unit tests, checks code quality (e.g., linting), and calculates code coverage.
+- Continuous Delivery (CD) workflows include retraining models and updating the model registry.
+The model is containerized using Docker, ensuring reproducibility across environments. Optionally, data and models are stored in GCP (Google Cloud Platform) for scalability and collaboration. Furthermore, we used deployment of the trained model via FastAPI, allowing us to expose an inference API that is scalable and easily accessible.
+ ---
 
 ### Question 30
 

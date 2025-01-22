@@ -22,6 +22,7 @@ from mlops_project.train import train
 
 def test_train():
     train(
+        config="config.yaml",
         train_images_path = "data/processed/train_images.pt",
         train_targets_path = "data/processed/train_targets.pt",
         batch_size = 2,
