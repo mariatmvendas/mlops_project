@@ -383,11 +383,11 @@ For our project we developed one docker image for both training and evaluation o
 >
 > Answer:
 
---- 
+
 When debugging experiments, we used a combination of standard debugging tools and profiling techniques. Initial debugging was handled using Visual Studio Code, which allowed us to step through code line-by-line and inspect variables. For deeper performance insights, we utilized a dedicated profiling script (profiling.py) that automates profiling with cProfile and analyzes results with pstats or visualizes them using SnakeViz. This allowed us to identify bottlenecks and optimize critical sections of the code.
 
 While profiling revealed opportunities for improvement, most computations in our project were abstracted through frameworks like PyTorch Lightning, making further optimizations challenging. Despite this, our profiling efforts ensured that the code runs efficiently and identified areas that could be improved in the future.
- ---
+
 
 ## Working in the cloud
 
