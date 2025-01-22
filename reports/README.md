@@ -378,7 +378,7 @@ For our project we developed one docker image for both training and evaluation o
 
 > In the following section we would like to know more about your experience when developing in the cloud.
 
-### Question 17
+### Question 17 A
 
 > **List all the GCP services that you made use of in your project and shortly explain what each service does?**
 >
@@ -391,7 +391,7 @@ For our project we developed one docker image for both training and evaluation o
 
 --- question 17 fill here ---
 
-### Question 18
+### Question 18 A
 
 > **The backbone of GCP is the Compute engine. Explained how you made use of this service and what type of VMs**
 > **you used?**
@@ -406,7 +406,7 @@ For our project we developed one docker image for both training and evaluation o
 
 --- question 18 fill here ---
 
-### Question 19
+### Question 19 A
 
 > **Insert 1-2 images of your GCP bucket, such that we can see what data you have stored in it.**
 > **You can take inspiration from [this figure](figures/bucket.png).**
@@ -415,7 +415,7 @@ For our project we developed one docker image for both training and evaluation o
 
 --- question 19 fill here ---
 
-### Question 20
+### Question 20 (?)
 
 > **Upload 1-2 images of your GCP artifact registry, such that we can see the different docker images that you have**
 > **stored. You can take inspiration from [this figure](figures/registry.png).**
@@ -424,7 +424,7 @@ For our project we developed one docker image for both training and evaluation o
 
 --- question 20 fill here ---
 
-### Question 21
+### Question 21 A
 
 > **Upload 1-2 images of your GCP cloud build history, so we can see the history of the images that have been build in**
 > **your project. You can take inspiration from [this figure](figures/build.png).**
@@ -433,7 +433,7 @@ For our project we developed one docker image for both training and evaluation o
 
 --- question 21 fill here ---
 
-### Question 22
+### Question 22 (?)
 
 > **Did you manage to train your model in the cloud using either the Engine or Vertex AI? If yes, explain how you did**
 > **it. If not, describe why.**
@@ -515,7 +515,7 @@ For our project we developed one docker image for both training and evaluation o
 
 > In the following section we would like you to think about the general structure of your project.
 
-### Question 27
+### Question 27 (A)
 
 > **How many credits did you end up using during the project and what service was most expensive? In general what do**
 > **you think about working in the cloud?**
