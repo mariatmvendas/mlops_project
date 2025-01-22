@@ -37,12 +37,15 @@ Usage Example:
    uvicorn src.mlops_project.api:app --reload
    ```
 
-2. Test the inference endpoint:
+2. Test the inference endpoint, open a new terminal:
    ```bash
    curl -X POST "http://127.0.0.1:8000/inference_satellite/" \
         -H "Content-Type: multipart/form-data" \
         -F "data=@path_to_your_image.jpg"
    ```
+   you can use curl -X POST "http://127.0.0.1:8000/inference_satellite/" \
+        -H "Content-Type: multipart/form-data" \
+        -F "data=@./tests/desert.jpg
 """
 
 import subprocess
