@@ -95,8 +95,8 @@ def train(
         job_type="train",
         config={"learning_rate": learning_rate, "batch_size": batch_size, "num_epochs": num_epochs})
 
-    with initialize(config_path="../../configs",job_name="test_app"):
-        cfg = compose(config_name=config)
+    with initialize(config_path="../../configs",job_name="test_app",version_base="1.1"):
+        cfg = compose(config_name=str(config))
 
     # Override values from config with command-line options if provided
     train_images_path = train_images_path or cfg.train["train_images_path"]
@@ -132,9 +132,9 @@ def train(
         train_images = torch.stack([img.permute(2, 0, 1) for img in train_images])
 
     # Use a subset of data for debugging (optional)
-    # subset_size = 1000  # Adjust this as needed for debugging
-    # train_images = train_images[:subset_size]
-    # train_targets = train_targets[:subset_size]
+    subset_size = 100  # Adjust this as needed for debugging
+    train_images = train_images[:subset_size]
+    train_targets = train_targets[:subset_size]
 
     # Create Dataset and DataLoader
     dataset = TensorDataset(train_images, train_targets)
@@ -175,7 +175,7 @@ def evaluate(
     test_images_path: str = typer.Option(None, help="Path to the test images"),
     test_targets_path: str = typer.Option(None, help="Path to the test targets"),
     batch_size: int = typer.Option(None, help="Batch size for evaluating"),
-    model_path: int = typer.Option(None, help="Model path for evaluating")):
+    model_path: str = typer.Option(None, help="Model path for evaluating")):
 
     """
     Evaluate the model.
@@ -196,8 +196,8 @@ def evaluate(
         job_type="evaluate",
         config={"batch_size": batch_size})
 
-    with initialize(config_path="../../configs",job_name="test_app"):
-        cfg = compose(config_name=config)
+    with initialize(config_path="../../configs",job_name="test_app",version_base="1.1"):
+        cfg = compose(config_name=str(config))
 
     # Override values from config with command-line options if provided
     test_images_path = test_images_path or cfg.evaluate["test_images_path"]
