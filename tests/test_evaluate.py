@@ -31,6 +31,7 @@ model_path = "models/model.pth"
 @pytest.mark.skipif(not os.path.exists(model_path), reason="Model file not found.")#FIXME does it make sense that it skips it if the model is not found?
 def test_evaluate():
     result = evaluate(
+        config="config.yaml",
         test_images_path="data/processed/test_images.pt",
         test_targets_path="data/processed/test_targets.pt",
         model_path=model_path,

@@ -1,0 +1,8 @@
+*
+!src
+!data
+!requirements.txt
+!requirements_dev.txt
+!README.md
+!pyproject.toml
+

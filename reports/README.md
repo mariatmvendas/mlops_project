@@ -118,9 +118,9 @@ will check the repositories and the code to verify your answers.
 >
 > Answer:
 
----
+
 29
----
+
 
 ### Question 2
 > **Enter the study number for each member in the group**
@@ -131,9 +131,15 @@ will check the repositories and the code to verify your answers.
 >
 > Answer:
 
+<<<<<<< HEAD
 ---
 s242186, s243299, sXXXXXX, sXXXXXX, sXXXXXX
 ---
+=======
+
+s242186, s243280, s242906, s241925, sXXXXXX
+
+>>>>>>> 5c5c91ae78bcd5ee394bd7fd09d79db984cbf976
 
 ### Question 3
 > **A requirement to the project is that you include a third-party package not covered in the course. What framework**
@@ -198,9 +204,9 @@ s242186, s243299, sXXXXXX, sXXXXXX, sXXXXXX
 >
 > Answer:
 
----
+
 We used extensive docstrings on important functions as well as typing for documentation. We also used ruff for linting to align with the pep8 style guidelines. Besides that, we also implemented formatting rules and a ruff checker as pre-commit hooker. Clearly, this is particulary beneficial in larger projects, since many people with different backgrounds are working on the same code files, so readability and consistency are key factors for having clean project source code. For example, when working on some new features and the developer wants to integrate this new feature in the main codebase, he most likely will do a pull request to let his coworkers peer-review the latest changes. So it is crucial that everyone understands newly written code easily and is thus able to review.
----
+
 
 ## Version control
 
@@ -219,9 +225,9 @@ We used extensive docstrings on important functions as well as typing for docume
 >
 > Answer:
 
----
+
 In total we have implemented 4 tests. Primarily we are testing the data.py and train.py files, those include our whole deep learning pipeline. In particular, we tested if the model has the correct number of classes and the correct output shape, if the training function outputs a model.pth file in the correct directory and if the evaluation function gives out a feasible number as accuracy.
----
+
 
 ### Question 8
 
@@ -251,9 +257,9 @@ In total we have implemented 4 tests. Primarily we are testing the data.py and t
 >
 > Answer:
 
----
+
 We made use of both branches and pull requests in our project. In our group we decided to not split up the branches member-wise, but rather create branches for the features we are working on. That means, every time someone is working on a new feature, this person creates a new branch to work on and afterwards come up with a pull request to merge and integrate the feature branch to the main branch. The decision to work on different branches came up during the project and was adapted since then. We also investigated that using feature branches instead of member branches is a good habit to keep in mind for future projects.
----
+
 
 ### Question 10
 
@@ -270,7 +276,7 @@ We made use of both branches and pull requests in our project. In our group we d
 
 --- question 10 fill here ---
 
-### Question 11
+### Question 11 M
 
 > **Discuss you continuous integration setup. What kind of continuous integration are you running (unittesting,**
 > **linting, etc.)? Do you test multiple operating systems, Python  version etc. Do you make use of caching? Feel free**
@@ -292,7 +298,7 @@ We made use of both branches and pull requests in our project. In our group we d
 > In the following section we are interested in learning more about the experimental setup for running your code and
 > especially the reproducibility of your experiments.
 
-### Question 12
+### Question 12 M
 
 > **How did you configure experiments? Did you make use of config files? Explain with coding examples of how you would**
 > **run a experiment.**
@@ -306,7 +312,7 @@ We made use of both branches and pull requests in our project. In our group we d
 
 --- question 12 fill here ---
 
-### Question 13
+### Question 13 M
 
 > **Reproducibility of experiments are important. Related to the last question, how did you secure that no information**
 > **is lost when running experiments and that your experiments are reproducible?**
@@ -336,11 +342,11 @@ We made use of both branches and pull requests in our project. In our group we d
 >
 > Answer:
 
----
+
 We leveraged wandb to track and log our experiments and to present resulting graphs automatically. As seen in the first image 'WandB log train_loss.png', we have tracked the training loss over time in order to verify convergence of the loss curve. This tracking was clearly executed during model training. On the second image 'WandB log validation_accuracy.png' the accuracy of the trained model is depicted which is evaluated on the validation data set. This metric is automatically getting logged when executing the evaluation function. The validation accuracy is important to evaluate the actual performance of the model, since it is impractical to evaluate on the training dataset for obvious reasons. The first and the second image were created with the whole dataset.
 Moreover, we created an artifact for the validation accuracy and tracked it on wandb. This can be leveraged for further experiments.
 Last but not least, we performed a hyperparameter optimization sweep on wandb to see which hyperparameter configuration fits the best for our model. This can be seen on the third image 'WandB hyperparameter sweep.png' with all the sweep configurations and the logged training loss as a performance metric. For feasible runtimes on our local machines, we trained with the sweep agent only on approximately one quarter of the data set.
----
+
 
 ### Question 15
 
@@ -355,9 +361,8 @@ Last but not least, we performed a hyperparameter optimization sweep on wandb to
 >
 > Answer:
 
----
 For our project we developed one docker image for both training and evaluation of our model. First we created a dockerfile 'train.dockerfile', from which we can build our docker image with the bash command: 'docker build -f dockerfiles/train.dockerfile . -t train:latest'. Then we are able to build different containers for both training (bash command: 'docker run --name mlops_container_train -v $(pwd)/models:/models train:latest train') and evaluation (bash command: 'docker run --name mlops_container_evaluate -v $(pwd)/data:/data -v $(pwd)/models:/models train:latest evaluate'). As you can see, the containerization of the important functions also includes mounting the data or model to the respective container. The dockerfile for training and evalutation can be found in the 'dockerfiles/train.dockerfile' directory.
----
+
 
 ### Question 16
 
@@ -378,7 +383,7 @@ For our project we developed one docker image for both training and evaluation o
 
 > In the following section we would like to know more about your experience when developing in the cloud.
 
-### Question 17
+### Question 17 A
 
 > **List all the GCP services that you made use of in your project and shortly explain what each service does?**
 >
@@ -391,7 +396,7 @@ For our project we developed one docker image for both training and evaluation o
 
 --- question 17 fill here ---
 
-### Question 18
+### Question 18 A
 
 > **The backbone of GCP is the Compute engine. Explained how you made use of this service and what type of VMs**
 > **you used?**
@@ -406,7 +411,7 @@ For our project we developed one docker image for both training and evaluation o
 
 --- question 18 fill here ---
 
-### Question 19
+### Question 19 A
 
 > **Insert 1-2 images of your GCP bucket, such that we can see what data you have stored in it.**
 > **You can take inspiration from [this figure](figures/bucket.png).**
@@ -415,7 +420,7 @@ For our project we developed one docker image for both training and evaluation o
 
 --- question 19 fill here ---
 
-### Question 20
+### Question 20 (?)
 
 > **Upload 1-2 images of your GCP artifact registry, such that we can see the different docker images that you have**
 > **stored. You can take inspiration from [this figure](figures/registry.png).**
@@ -424,7 +429,7 @@ For our project we developed one docker image for both training and evaluation o
 
 --- question 20 fill here ---
 
-### Question 21
+### Question 21 A
 
 > **Upload 1-2 images of your GCP cloud build history, so we can see the history of the images that have been build in**
 > **your project. You can take inspiration from [this figure](figures/build.png).**
@@ -433,7 +438,7 @@ For our project we developed one docker image for both training and evaluation o
 
 --- question 21 fill here ---
 
-### Question 22
+### Question 22 (?)
 
 > **Did you manage to train your model in the cloud using either the Engine or Vertex AI? If yes, explain how you did**
 > **it. If not, describe why.**
@@ -450,7 +455,7 @@ For our project we developed one docker image for both training and evaluation o
 
 ## Deployment
 
-### Question 23
+### Question 23 R
 
 > **Did you manage to write an API for your model? If yes, explain how you did it and if you did anything special. If**
 > **not, explain how you would do it.**
@@ -465,7 +470,7 @@ For our project we developed one docker image for both training and evaluation o
 
 --- question 23 fill here ---
 
-### Question 24
+### Question 24 R
 
 > **Did you manage to deploy your API, either in locally or cloud? If not, describe why. If yes, describe how and**
 > **preferably how you invoke your deployed service?**
@@ -496,7 +501,7 @@ For our project we developed one docker image for both training and evaluation o
 
 --- question 25 fill here ---
 
-### Question 26
+### Question 26 A
 
 > **Did you manage to implement monitoring of your deployed model? If yes, explain how it works. If not, explain how**
 > **monitoring would help the longevity of your application.**
@@ -515,7 +520,7 @@ For our project we developed one docker image for both training and evaluation o
 
 > In the following section we would like you to think about the general structure of your project.
 
-### Question 27
+### Question 27 (A)
 
 > **How many credits did you end up using during the project and what service was most expensive? In general what do**
 > **you think about working in the cloud?**
@@ -544,10 +549,10 @@ For our project we developed one docker image for both training and evaluation o
 >
 > Answer:
 
----
+
 We implemented a pre-commit hook that automatically checks for styling and formatting of the provided files before actually committing it, this helps us to comply with good coding style guidelines.
 Furthermore, we create loggings of model parameters and the used device and save them in a log file for debugging. This can be found in the 'logs/log_debug.log' directory.
----
+
 
 ### Question 29
 
@@ -602,10 +607,10 @@ The model is containerized using Docker, ensuring reproducibility across environ
 > *We have used ChatGPT to help debug our code. Additionally, we used GitHub Copilot to help write some of our code.*
 > Answer:
 
----
+
 Student s242186 was in charge of good coding practices like linting, typing and docstrings. Additionally, the student developed docker files, images and containers. The student also was in charge of logging with log files, wandb logging and artefacts and wandb hyperparameter sweeps. In addition, this student created unit tests for model, training and evaluation and calculated code coverage and was in charge for implementing pre-commit hooks.
 Student sXXXXXX ...
 Student sXXXXXX ...
 Student sXXXXXX ...
 Student sXXXXXX ...
----
+
