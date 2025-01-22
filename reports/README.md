@@ -355,9 +355,8 @@ Last but not least, we performed a hyperparameter optimization sweep on wandb to
 >
 > Answer:
 
----
 For our project we developed one docker image for both training and evaluation of our model. First we created a dockerfile 'train.dockerfile', from which we can build our docker image with the bash command: 'docker build -f dockerfiles/train.dockerfile . -t train:latest'. Then we are able to build different containers for both training (bash command: 'docker run --name mlops_container_train -v $(pwd)/models:/models train:latest train') and evaluation (bash command: 'docker run --name mlops_container_evaluate -v $(pwd)/data:/data -v $(pwd)/models:/models train:latest evaluate'). As you can see, the containerization of the important functions also includes mounting the data or model to the respective container. The dockerfile for training and evalutation can be found in the 'dockerfiles/train.dockerfile' directory.
----
+
 
 ### Question 16
 
@@ -545,7 +544,7 @@ For our project we developed one docker image for both training and evaluation o
 > Answer:
 
 ---
-> We implemented a pre-commit hook that automatically checks for styling and formatting of the provided files before actually committing it, this helps us to comply with good coding style guidelines.
+We implemented a pre-commit hook that automatically checks for styling and formatting of the provided files before actually committing it, this helps us to comply with good coding style guidelines.
 Furthermore, we create loggings of model parameters and the used device and save them in a log file for debugging. This can be found in the 'logs/log_debug.log' directory.
 ---
 
