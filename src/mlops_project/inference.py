@@ -30,6 +30,7 @@ Usage:
 2. Run the script from the command line:
    ```bash
    python inference.py path_to_image.jpg
+"""
 
 
 import numpy as np  # Import numpy first to avoid threading conflicts
