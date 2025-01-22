@@ -13,6 +13,9 @@ python-dotenv==1.0.1
 pandas==2.2.3
 wandb==0.19.4
 pytorch-lightning==2.5.0.post0
+uvicron==0.34.0
+fastapi==0.115.6
+python-multipart==0.0.20
 typer==0.15.1
 
 
