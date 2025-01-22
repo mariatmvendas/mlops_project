@@ -98,7 +98,7 @@ def train(
         job_type="train",
         config={"learning_rate": learning_rate, "batch_size": batch_size, "num_epochs": num_epochs})
 
-    with initialize(config_path="../../configs",job_name="test_app"):
+    with initialize(config_path="../../configs",job_name="test_app",version_base="1.1"):
         cfg = compose(config_name=config)
 
     # Override values from config with command-line options if provided
@@ -199,7 +199,7 @@ def evaluate(
         job_type="evaluate",
         config={"batch_size": batch_size})
 
-    with initialize(config_path="../../configs",job_name="test_app"):
+    with initialize(config_path="../../configs",job_name="test_app",version_base="1.1"):
         cfg = compose(config_name=config)
 
     # Override values from config with command-line options if provided
