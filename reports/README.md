@@ -173,7 +173,9 @@ s242186, s243280, s242906, s241925, sXXXXXX
 >
 > Answer:
 
---- question 4 fill here ---
+--- 
+We managed dependencies using a requirements.txt file to list essential libraries and requirements_dev.txt for development tools. To replicate the environment, a new team member would clone the repository, create and activate a virtual environment (conda), and install the dependencies using pip install -r requirements.txt. Alternatively, we can use the Docker setup provided, which contains the entire environment pre-configured, ensuring consistency and preventing dependency conflicts.
+ ---
 
 ### Question 5
 
@@ -189,7 +191,11 @@ s242186, s243280, s242906, s241925, sXXXXXX
 >
 > Answer:
 
---- question 5 fill here ---
+--- 
+Our project was initialized using the cookiecutter template, which provided a structured framework for organizing our code. The overall structure includes key folders such as src/ for the main source code, tests/ for unit and integration tests, data/ for raw and processed datasets, models/ for saved models, and configs/ for configuration files. 
+
+We focused on filling the essential folders: src/, where we implemented data preprocessing, training, and evaluation scripts; configs/, to manage hyperparameters and pipeline settings; and tests/, to ensure code reliability. We have also added some folder like Wandb or Logs. Some folders, like docs/ and notebooks/, were not heavily utilized as they were not critical for the pipeline. This structure ensured modularity, clarity, and ease of collaboration.
+ ---
 
 ### Question 6
 
@@ -377,7 +383,11 @@ For our project we developed one docker image for both training and evaluation o
 >
 > Answer:
 
---- question 16 fill here ---
+--- 
+When debugging experiments, we used a combination of standard debugging tools and profiling techniques. Initial debugging was handled using Visual Studio Code, which allowed us to step through code line-by-line and inspect variables. For deeper performance insights, we utilized a dedicated profiling script (profiling.py) that automates profiling with cProfile and analyzes results with pstats or visualizes them using SnakeViz. This allowed us to identify bottlenecks and optimize critical sections of the code.
+
+While profiling revealed opportunities for improvement, most computations in our project were abstracted through frameworks like PyTorch Lightning, making further optimizations challenging. Despite this, our profiling efforts ensured that the code runs efficiently and identified areas that could be improved in the future.
+ ---
 
 ## Working in the cloud
 
@@ -570,11 +580,9 @@ Furthermore, we create loggings of model parameters and the used device and save
 > Answer:
 
 --- 
-The starting point of the diagram is our local setup, where we use data.py for preprocessing and preparing data. We train models using train.py and track metrics like loss and accuracy using Weights & Biases (W&B).
-Whenever we commit and push changes to GitHub, it automatically triggers workflows using GitHub Actions:
-- Continuous Integration (CI) runs unit tests, checks code quality (e.g., linting), and calculates code coverage.
-- Continuous Delivery (CD) workflows include retraining models and updating the model registry.
-The model is containerized using Docker, ensuring reproducibility across environments. Optionally, data and models are stored in GCP (Google Cloud Platform) for scalability and collaboration. Furthermore, we used deployment of the trained model via FastAPI, allowing us to expose an inference API that is scalable and easily accessible.
+The diagram illustrates the Machine Learning Operations Pipeline, starting with the user pulling a pre-built Docker image or cloning the project directory from the GitHub repository to their local environment. In the DEV environment, tools like PyTorch, PyTorch Lightning, Weights & Biases, and Hydra are used for model development, configuration management, and experiment tracking. Data is managed and versioned using DVC in combination with a Local Data Storage. Once changes are made, code, data, and models are added, committed, and pushed to GitHub, triggering GitHub Actions workflows to run tests, build containers, and ensure continuous integration.
+
+The CI/CD pipeline leverages Docker for containerization and deploys models to Google Cloud Platform (GCP) using Google Cloud Deploy. The trained model is exposed via a FastAPI application, allowing users to query predictions through a Query Server connected to GCP. This pipeline ensures reproducibility, scalability, and automation, while tracking and updating datasets and models seamlessly for continuous improvement. It integrates local, cloud, and CI/CD environments to maintain an efficient and reliable workflow.
  ---
 
 ### Question 30
