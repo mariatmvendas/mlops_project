@@ -13,6 +13,9 @@ contains data.py to preprocess data, train.py to train the model and evaluate it
 # test directory
 the directory contains test for src. In order to launch them you need to do pytest tests/
 
+# API
+
+
 
 # mlops_project
 
