@@ -270,7 +270,7 @@ We made use of both branches and pull requests in our project. In our group we d
 
 --- question 10 fill here ---
 
-### Question 11
+### Question 11 M
 
 > **Discuss you continuous integration setup. What kind of continuous integration are you running (unittesting,**
 > **linting, etc.)? Do you test multiple operating systems, Python  version etc. Do you make use of caching? Feel free**
@@ -292,7 +292,7 @@ We made use of both branches and pull requests in our project. In our group we d
 > In the following section we are interested in learning more about the experimental setup for running your code and
 > especially the reproducibility of your experiments.
 
-### Question 12
+### Question 12 M
 
 > **How did you configure experiments? Did you make use of config files? Explain with coding examples of how you would**
 > **run a experiment.**
@@ -306,7 +306,7 @@ We made use of both branches and pull requests in our project. In our group we d
 
 --- question 12 fill here ---
 
-### Question 13
+### Question 13 M
 
 > **Reproducibility of experiments are important. Related to the last question, how did you secure that no information**
 > **is lost when running experiments and that your experiments are reproducible?**
@@ -450,7 +450,7 @@ For our project we developed one docker image for both training and evaluation o
 
 ## Deployment
 
-### Question 23
+### Question 23 R
 
 > **Did you manage to write an API for your model? If yes, explain how you did it and if you did anything special. If**
 > **not, explain how you would do it.**
@@ -465,7 +465,7 @@ For our project we developed one docker image for both training and evaluation o
 
 --- question 23 fill here ---
 
-### Question 24
+### Question 24 R
 
 > **Did you manage to deploy your API, either in locally or cloud? If not, describe why. If yes, describe how and**
 > **preferably how you invoke your deployed service?**
