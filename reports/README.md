@@ -83,7 +83,7 @@ will check the repositories and the code to verify your answers.
 * [ ] Add a continues workflow that triggers when changes to the model registry is made (M19)
 * [x] Create a data storage in GCP Bucket for your data and link this with your data version control setup (M21)
 * [ ] Create a trigger workflow for automatically building your docker images (M21)
-* [ ] Get your model training in GCP using either the Engine or Vertex AI (M21)
+* [x] Get your model training in GCP using either the Engine or Vertex AI (M21)
 * [x] Create a FastAPI application that can do inference using your model (M22)
 * [ ] Deploy your model in GCP using either Functions or Run as the backend (M23)
 * [ ] Write API tests for your application and setup continues integration for these (M24)
@@ -131,15 +131,9 @@ will check the repositories and the code to verify your answers.
 >
 > Answer:
 
-<<<<<<< HEAD
----
-s242186, s243299, sXXXXXX, sXXXXXX, sXXXXXX
----
-=======
 
 s242186, s243280, s242906, s241925, sXXXXXX
 
->>>>>>> 5c5c91ae78bcd5ee394bd7fd09d79db984cbf976
 
 ### Question 3
 > **A requirement to the project is that you include a third-party package not covered in the course. What framework**
@@ -393,7 +387,7 @@ While profiling revealed opportunities for improvement, most computations in our
 
 > In the following section we would like to know more about your experience when developing in the cloud.
 
-### Question 17 A
+### Question 17
 
 > **List all the GCP services that you made use of in your project and shortly explain what each service does?**
 >
@@ -404,11 +398,13 @@ While profiling revealed opportunities for improvement, most computations in our
 >
 > Answer:
 
---- question 17 fill here ---
+We mainly used the following services: Compute Engine, Cloud Build, Artifact Registry and Cloud Storage. Cloud Storage was used to store our project data. Cloud Build and Artifact Registry were used to manage our containerized workflows. Cloud Build handled the creation of Docker images, while Artifact Registry stored these images. Finally, Compute Engine was used to run our machine learning models. 
 
-### Question 18 A
 
-> **The backbone of GCP is the Compute engine. Explained how you made use of this service and what type of VMs**
+
+### Question 18
+
+> **The backbone of GCP is the Compute engine. Explain how you made use of this service and what type of VMs**
 > **you used?**
 >
 > Recommended answer length: 100-200 words.
@@ -419,36 +415,42 @@ While profiling revealed opportunities for improvement, most computations in our
 >
 > Answer:
 
---- question 18 fill here ---
+We used the Compute Engine to run our machine learning model on a virtual machine. We created a e2-medium instance with 2vCPU and 4GB memory. After ensuring that PyTorch was installed, we were able to execute our model in the cloud. This setup allowed us to efficiently train the model while managing the computational resources needed for the task.
 
-### Question 19 A
+
+### Question 19
 
 > **Insert 1-2 images of your GCP bucket, such that we can see what data you have stored in it.**
 > **You can take inspiration from [this figure](figures/bucket.png).**
 >
 > Answer:
 
---- question 19 fill here ---
+We stored both our raw and processed data in our GCP bucket. 
 
-### Question 20 (?)
+![Figure](figures/gcloud_bucket.png)
+
+### Question 20
 
 > **Upload 1-2 images of your GCP artifact registry, such that we can see the different docker images that you have**
 > **stored. You can take inspiration from [this figure](figures/registry.png).**
 >
 > Answer:
 
---- question 20 fill here ---
+We just stored one docker image in our GCP artifact registry. 
 
-### Question 21 A
+![Figure](figures/gcloud_image.png)
+
+### Question 21
 
 > **Upload 1-2 images of your GCP cloud build history, so we can see the history of the images that have been build in**
 > **your project. You can take inspiration from [this figure](figures/build.png).**
 >
 > Answer:
 
---- question 21 fill here ---
+![Figure](figures/gcloud_buildhistory.png)
 
-### Question 22 (?)
+
+### Question 22
 
 > **Did you manage to train your model in the cloud using either the Engine or Vertex AI? If yes, explain how you did**
 > **it. If not, describe why.**
@@ -460,8 +462,8 @@ While profiling revealed opportunities for improvement, most computations in our
 > *was because ...*
 >
 > Answer:
+We managed to train our model in the cloud using the Compute Engine. We did this by first creating an appropiate VM that had PyTorch preinstalled. Then, we logged into this VM and checked that Pytorch was indeed installed. After this, we cloned our GitHub repository, we installed the necessary dependencies by running `pip3 install -r requirements.txt` and downloaded the data from our GCS bucket. Finally, we called our train.py file to train our model on the cloud. 
 
---- question 22 fill here ---
 
 ## Deployment
 
@@ -511,7 +513,7 @@ While profiling revealed opportunities for improvement, most computations in our
 
 --- question 25 fill here ---
 
-### Question 26 A
+### Question 26
 
 > **Did you manage to implement monitoring of your deployed model? If yes, explain how it works. If not, explain how**
 > **monitoring would help the longevity of your application.**
@@ -524,13 +526,14 @@ While profiling revealed opportunities for improvement, most computations in our
 >
 > Answer:
 
---- question 26 fill here ---
+We did not manage to implement monitoring yet, but we would like to implement it to track the model’s performance over time, particularly its classification accuracy. By continuously monitoring, we could quickly detect any performance degradation and address issues like shifts in image characteristics or changes in data distribution.
+
 
 ## Overall discussion of project
 
 > In the following section we would like you to think about the general structure of your project.
 
-### Question 27 (A)
+### Question 27
 
 > **How many credits did you end up using during the project and what service was most expensive? In general what do**
 > **you think about working in the cloud?**
@@ -543,7 +546,9 @@ While profiling revealed opportunities for improvement, most computations in our
 >
 > Answer:
 
---- question 27 fill here ---
+We spent 18% of the available credits during development. The most expensive service was the creation of the Docker image. Working in the cloud was easier than we initially expected. It was nice to learn how to upload data to the cloud and train a model there. Once the steps were understood, the process became quite straightforward and efficient. 
+
+![Figure](figures/gcloud_credits.png)
 
 ### Question 28
 
@@ -617,8 +622,9 @@ The CI/CD pipeline leverages Docker for containerization and deploys models to G
 
 
 Student s242186 was in charge of good coding practices like linting, typing and docstrings. Additionally, the student developed docker files, images and containers. The student also was in charge of logging with log files, wandb logging and artefacts and wandb hyperparameter sweeps. In addition, this student created unit tests for model, training and evaluation and calculated code coverage and was in charge for implementing pre-commit hooks.
-Student sXXXXXX ...
+Student s243280 was in charge of all the aspects related to cloud computing. Additionally, the student participated in the development of the files needed for data processing as well as the development of the model training and evaluation files. The student also worked on the profiling and monitoring of the project done. 
 Student sXXXXXX ...
 Student sXXXXXX ...
 Student sXXXXXX ...
 
+We have used ChatGPT to help debug our code. Additionally, we used GitHub Copilot to help write some of our code.
