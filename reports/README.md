@@ -398,7 +398,7 @@ While profiling revealed opportunities for improvement, most computations in our
 >
 > Answer:
 
-We mainly used the following services: Compute Engine, Cloud Build, Artifact Registry and Cloud Storage. Cloud Storage was used to store our project data. Cloud Build and Artifact Registry were used to manage our containerized workflows. Cloud Build handled the creation of Docker images, while Artifact Registry stored these images. Finally, Compute Engine was used to run our machine learning models. 
+We mainly used the following services: Compute Engine, Cloud Build, Artifact Registry and Cloud Storage. Cloud Storage was used to store our project data. Cloud Build and Artifact Registry were used to manage our containerized workflows. Cloud Build handled the creation of Docker images, while Artifact Registry stored these images. Finally, Compute Engine was used to run our machine learning model. 
 
 
 
@@ -462,6 +462,8 @@ We just stored one docker image in our GCP artifact registry.
 > *was because ...*
 >
 > Answer:
+
+
 We managed to train our model in the cloud using the Compute Engine. We did this by first creating an appropiate VM that had PyTorch preinstalled. Then, we logged into this VM and checked that Pytorch was indeed installed. After this, we cloned our GitHub repository, we installed the necessary dependencies by running `pip3 install -r requirements.txt` and downloaded the data from our GCS bucket. Finally, we called our train.py file to train our model on the cloud. 
 
 
