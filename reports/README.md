@@ -75,14 +75,14 @@ will check the repositories and the code to verify your answers.
 * [x] Write unit tests related to the data part of your code (M16)
 * [x] Write unit tests related to model construction and or model training (M16)
 * [ ] Calculate the code coverage (M16)
-* [ ] Get some continuous integration running on the GitHub repository (M17)
-* [ ] Add caching and multi-os/python/pytorch testing to your continuous integration (M17)
-* [ ] Add a linting step to your continuous integration (M17)
+* [x] Get some continuous integration running on the GitHub repository (M17)
+* [x] Add caching and multi-os/python/pytorch testing to your continuous integration (M17)
+* [x] Add a linting step to your continuous integration (M17)
 * [x] Add pre-commit hooks to your version control setup (M18)
 * [x] Add a continues workflow that triggers when data changes (M19)
-* [ ] Add a continues workflow that triggers when changes to the model registry is made (M19)
+* [x] Add a continues workflow that triggers when changes to the model registry is made (M19)
 * [x] Create a data storage in GCP Bucket for your data and link this with your data version control setup (M21)
-* [ ] Create a trigger workflow for automatically building your docker images (M21)
+* [x] Create a trigger workflow for automatically building your docker images (M21)
 * [x] Get your model training in GCP using either the Engine or Vertex AI (M21)
 * [x] Create a FastAPI application that can do inference using your model (M22)
 * [ ] Deploy your model in GCP using either Functions or Run as the backend (M23)
@@ -147,7 +147,7 @@ s242186, s243280, s242906, s241925, s243299
 >
 > Answer:
 
---- question 3 fill here ---
+ For this project, we have chosen to use the TIMM framework for Computer Vision. This framework will allow us to construct and experiment with state-of-the-art deep learning models for our task. As part of the project, we will set up the TIMM framework within our environment. We plan to begin by using pre-trained models on our data and then explore ways to further enhance their performance. It was particularly helpful in our project for quickly experimenting with different model backbones and focusing more on pipeline optimization rather than model construction. Overall, timm was a valuable addition to our workflow and contributed to the successful completion of the project.
 
 ## Coding environment
 
@@ -278,9 +278,10 @@ We made use of both branches and pull requests in our project. In our group we d
 >
 > Answer:
 
---- question 10 fill here ---
+Yes, we used DVC to manage data in our project. By integrating DVC, we were able to version control our datasets effectively, ensuring that every experiment could be traced back to the exact version of the data it used. This was especially valuable for maintaining consistency across team members and reproducing results. The use of remote storage, such as Google Cloud Storage, allowed us to collaborate seamlessly without manually transferring large files. Additionally, DVC provided a clear history of changes to the data, which helped us identify and debug issues related to dataset modifications. Overall, DVC streamlined data management and significantly improved the reproducibility and efficiency of our workflow.
 
-### Question 11 M
+
+### Question 11 
 
 > **Discuss you continuous integration setup. What kind of continuous integration are you running (unittesting,**
 > **linting, etc.)? Do you test multiple operating systems, Python  version etc. Do you make use of caching? Feel free**
@@ -633,8 +634,8 @@ The CI/CD pipeline leverages Docker for containerization and deploys models to G
 
 Student s242186 was in charge of good coding practices like linting, typing and docstrings. Additionally, the student developed docker files, images and containers. The student also was in charge of logging with log files, wandb logging and artefacts and wandb hyperparameter sweeps. In addition, this student created unit tests for model, training and evaluation and calculated code coverage and was in charge for implementing pre-commit hooks.
 Student s243280 was in charge of all the aspects related to cloud computing. Additionally, the student participated in the development of the files needed for data processing as well as the development of the model training and evaluation files. The student also worked on the profiling and monitoring of the project done. 
-Student sXXXXXX ...
+Student s243299 actively contributed to the development of the data processing pipeline, ensuring the proper handling and transformation of datasets. The student assisted in implementing logging in the code to monitor model performance and track results effectively, promoting transparency and facilitating better analysis of experiments. Additionally, the student played a significant role in designing and developing the project's workflows, as well as creating the project's architetural pipeline and addressing boilerplate code, which established a clean and efficient project structure.
 Student sXXXXXX ...
 Student sXXXXXX ...
 
-We have used ChatGPT to help debug our code. Additionally, we used GitHub Copilot to help write some of our code.
+Furthermore, we have used ChatGPT to help debug our code. Additionally, we used GitHub Copilot to help write some of our code.

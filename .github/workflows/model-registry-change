@@ -5,37 +5,40 @@ on:
     paths:
       - "models/**"  # Monitor changes in the "models" folder
 
+permissions:
+  contents: read
+
 jobs:
-  model_change:
-    runs-on: ubuntu-latest
+  model-change:
+
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: ["ubuntu-latest", "windows-latest", "macos-latest"]
+        python-version: ["3.10", "3.11", "3.12"]
 
     steps:
-      # Step 1: Clone the repository
-      - name: Checkout Repository
-        uses: actions/checkout@v3
+    - name: Checkout Repository
+      uses: actions/checkout@v3
 
-      # Step 2: Set up Python environment
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: "3.8"
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
 
-      # Step 3: Install required dependencies
-      - name: Install Dependencies
-        run: |
-          pip install -r requirements.txt
+    - name: Install Dependencies
+      run: |
+        pip install -r requirements.txt
 
-      # Step 4: Retrain the model
-      - name: Retrain Model
-        run: |
-          python src/mlops_project/train.py
+    - name: Retrain Model
+      run: |
+        python src/mlops_project/train.py
 
-      # Step 5: (Optional) Evaluate the model
-      - name: Evaluate Model
-        run: |
-          python src/mlops_project/evaluate.py
+    - name: Evaluate Model
+      run: |
+        python src/mlops_project/evaluate.py
 
-      # Step 6: (Optional) Generate metrics report
-      - name: Generate Metrics Report
-        run: |
-          python src/mlops_project/visualize.py
+    - name: Generate Metrics Report
+      run: |
+        python src/mlops_project/visualize.py
+
