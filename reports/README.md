@@ -246,7 +246,7 @@ The total code coverage is 70%. In the figure below, we can see the code coverag
 
 ![alt text](image.png)
 
-A code coverage of 100% or close is a good indicator but it does not gives us the certainty that the code is free of errors. Code coverage simply counts which lines of code are executed during testing, not if they are working correctly or are capable of handling all situations. Errors like integration problems or environment-specific behavior might still arise if they were not fully considered during testing. High coverage is valuable, but it doesn’t account for logic errors and performance issues. To ensure reliability, good test quality, real-world testing ans thorough reviews are necessary alongside high coverage.
+A code coverage of 100% or close is a good indicator but it does not gives us the certainty that the code is free of errors. Code coverage simply counts which lines of code are executed during testing, not if they are working correctly or are capable of handling all situations. Errors like integration problems or specific environment behavior might still arise if they were not fully considered during testing. High coverage is valuable, but it doesn’t account for logic errors and performance issues. To ensure reliability, good test quality, real-world testing and thorough reviews are necessary alongside high coverage.
 
 ### Question 9
 
@@ -296,9 +296,11 @@ Yes, we used DVC to manage data in our project. By integrating DVC, we were able
 >
 > Answer:
 
-The primary CI workflow is Python application, focused on code quality, reliability, and cross-platform compatibility. It's implemented in Github Actions and triggered on pushes and pull requests to the main branch. To ensure compatibility, it tests across multiple operating systems as Windows, Ubuntu and MacOs and Pyhton versions (3.10, 3.11 and 3.12). The pipeline includes setting up Python with dependency caching and linting with flake8 to check and upgrade code quality. It also executes tests with pytest and measures code coverage. To run these tests, the data is downloaded from our data bucket and uses the WANDB_API_KEY environment variable through GitHub secrets to avoid issues with logging in wandb.
+The primary CI workflow is Python application, focused on code quality, reliability and compatibility. It's implemented in Github Actions and triggered on pushes and pull requests to the main branch. To ensure compatibility, it tests across multiple operating systems as Windows, Ubuntu and MacOs and Pyhton versions (3.10, 3.11 and 3.12). The pipeline includes setting up Python with dependency caching and linting with flake8 to check and upgrade code quality. It also executes tests with pytest and measures code coverage. To run these tests, the data is downloaded from our data bucket and uses the WANDB_API_KEY environment variable through Github secrets to avoid issues with logging in wandb.
 
-Additionally, we have a workflow to handle updates to the model, Model Registry Workflow, and updates to the dataset, Data Change Workflow. The first one is triggered by changes in the models directory by retraining and evaluating the updated model. The second one monitors changes in the data directory and runs the data pipeline (data.py). 
+Additionally, we have a workflow to handle updates to the model, Model Registry Workflow, and updates to the dataset, Data Change Workflow. The first one is triggered by changes in the models directory by retraining and evaluating the updated model. The second one monitors changes in the data directory and runs the data pipeline (data.py). As the previous workflow, these also test across multiple operating systems and Pyhton versions.
+
+Link to GitHub workflows: https://github.com/mariatmvendas/mlops_project/tree/main/.github/workflows 
 
 ## Running code and tracking experiments
 
@@ -317,7 +319,14 @@ Additionally, we have a workflow to handle updates to the model, Model Registry 
 >
 > Answer:
 
---- question 12 fill here ---
+We used YAML config files for default hyperparameters and command-line arguments for flexibility. Hydra made it possible to load the hyperparameters from the YAML files and to switch between files. Typer provides a CL interface and CL arguments could override the files, changing the default value of any of the hyperparameters. It also allows us to change the YAML file that we want to use by parsing --config <name_of_config_file>.
+
+By running python src/mlops_project/train.py train --config exp1,
+the hyperparameters will be the ones defined in the exp1.yaml file.
+
+By running python src/mlops_project/train.py train --batch-size 12,
+the hyperparameters will be the ones defined in the config.yaml file, except for batch_size that will be 12.
+
 
 ### Question 13 M
 
@@ -332,7 +341,8 @@ Additionally, we have a workflow to handle updates to the model, Model Registry 
 >
 > Answer:
 
---- question 13 fill here ---
+To ensure reproducibility, we first used YAML files to define all hyperparameters, including paths to data, batch size, learning rate, number of epochs, and model path, which Hydra then loaded. Weights and Bias (WB) was then integrated for experiment tracking and logging. It logs key metrics such as training loss and validation accuracy during the train and evaluate functions and the hyperparameters of each run, so we can compare experiments. WB also saves the overrides from the command line, resulting in no information loss and traceable changes. Additionally, trained models were saved as WB artifacts, providing a record of the models and their corresponding results of each experiment version.
+
 
 ### Question 14
 
