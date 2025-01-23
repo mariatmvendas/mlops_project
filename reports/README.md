@@ -106,10 +106,10 @@ will check the repositories and the code to verify your answers.
 
 * [ ] Write some documentation for your application (M32)
 * [ ] Publish the documentation to GitHub Pages (M32)
-* [ ] Revisit your initial project description. Did the project turn out as you wanted?
+* [x] Revisit your initial project description. Did the project turn out as you wanted?
 * [x] Create an architectural diagram over your MLOps pipeline
 * [x] Make sure all group members have an understanding about all parts of the project
-* [ ] Uploaded all your code to GitHub
+* [x] Uploaded all your code to GitHub
 
 ## Group information
 
@@ -590,6 +590,8 @@ Furthermore, we create loggings of model parameters and the used device and save
 The diagram illustrates the Machine Learning Operations Pipeline, starting with the user pulling a pre-built Docker image or cloning the project directory from the GitHub repository to their local environment. In the DEV environment, tools like PyTorch, PyTorch Lightning, Weights & Biases, and Hydra are used for model development, configuration management, and experiment tracking. Data is managed and versioned using DVC in combination with a Local Data Storage. Once changes are made, code, data, and models are added, committed, and pushed to GitHub, triggering GitHub Actions workflows to run tests, build containers, and ensure continuous integration.
 
 The CI/CD pipeline leverages Docker for containerization and deploys models to Google Cloud Platform (GCP) using Google Cloud Deploy. The trained model is exposed via a FastAPI application, allowing users to query predictions through a Query Server connected to GCP. This pipeline ensures reproducibility, scalability, and automation, while tracking and updating datasets and models seamlessly for continuous improvement. It integrates local, cloud, and CI/CD environments to maintain an efficient and reliable workflow.
+
+![Figure](figures/MLO_Pipeline.png)
 
 
 ### Question 30
