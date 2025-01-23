@@ -296,9 +296,9 @@ Yes, we used DVC to manage data in our project. By integrating DVC, we were able
 >
 > Answer:
 
-The primary CI workflow is Python application focused on code quality, reliability, and cross-platform compatibility, implemented in Github Actions, which is triggered on pushes and pull requests to the main branch. To ensure compatibility, it tests across multiple operating systems as Windows, Ubuntu and MacOs and Pyhton versions (3.10, 3.11 and 3.12). The pipeline includes setting up Python with dependency caching and linting with flake8 to check and upgrade code quality. It also executes tests with pytest and measures code coverage. To run these tests, the data is downloaded from our data bucket and uses the WANDB_API_KEY environment variable through GitHub secrets to avoid issues with logging in wandb.
+The primary CI workflow is Python application, focused on code quality, reliability, and cross-platform compatibility. It's implemented in Github Actions and triggered on pushes and pull requests to the main branch. To ensure compatibility, it tests across multiple operating systems as Windows, Ubuntu and MacOs and Pyhton versions (3.10, 3.11 and 3.12). The pipeline includes setting up Python with dependency caching and linting with flake8 to check and upgrade code quality. It also executes tests with pytest and measures code coverage. To run these tests, the data is downloaded from our data bucket and uses the WANDB_API_KEY environment variable through GitHub secrets to avoid issues with logging in wandb.
 
-Additionally, we have a workflow to handle updates to the model, Model Registry Workflow, and updates to the dataset, Data Change Workflow. The first one is triggered by changes in the models directory by retraining and evaluating the model after changes were made
+Additionally, we have a workflow to handle updates to the model, Model Registry Workflow, and updates to the dataset, Data Change Workflow. The first one is triggered by changes in the models directory by retraining and evaluating the updated model. The second one monitors changes in the data directory and runs the data pipeline (data.py). 
 
 ## Running code and tracking experiments
 
