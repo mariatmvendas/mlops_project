@@ -636,7 +636,7 @@ Student s242186 was in charge of good coding practices like linting, typing and 
 
 Student s243280 was in charge of all the aspects related to cloud computing. Additionally, the student participated in the development of the files needed for data processing as well as the development of the model training and evaluation files. The student also worked on the profiling and monitoring of the project done.
 
-Student s243299 actively contributed to the development of the data processing pipeline, ensuring the proper handling and transformation of datasets. The student assisted in implementing logging in the code to monitor model performance and track results effectively, promoting transparency and facilitating better analysis of experiments. Additionally, the student played a significant role in designing and developing the project's workflows, as well as creating the project's architetural pipeline and addressing boilerplate code, which established a clean and efficient project structure.
+Student s243299 contributed to the development of the data processing pipeline, ensuring the proper handling and transformation of datasets. The student assisted in implementing logging in the code to monitor model performance and track results effectively, promoting transparency and facilitating better analysis of experiments. Additionally, the student played a significant role in designing the project's workflows, as well as creating the project's architectural pipeline and addressing boilerplate code, which established a clean and efficient project structure.
 
 Student sXXXXXX ...
 
