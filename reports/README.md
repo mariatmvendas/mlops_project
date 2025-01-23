@@ -490,7 +490,7 @@ curl -X POST "http://127.0.0.1:8000/inference_satellite/" \
      -F "data=@path_to_image.jpg"
 The API is designed to provide instructions at the root endpoint (GET /), making it user-friendly and easy to invoke. While we have tested local deployment successfully, further plans include deploying the API to the cloud for wider accessibility. ---
 
-### Question 25
+### Question 25 R
 
 > **Did you perform any unit testing and load testing of your API? If yes, explain how you did it and what results for**
 > **the load testing did you get. If not, explain how you would do it.**
@@ -503,7 +503,12 @@ The API is designed to provide instructions at the root endpoint (GET /), making
 >
 > Answer:
 
---- question 25 fill here ---
+--- For unit testing, we used the TestClient from FastAPI to test the functionality of the root endpoint (GET /). The unit test verified that the endpoint returned the correct HTTP status code, expected JSON response. The root endpoint returned a 200 status code along with instructions on how to use the API.
+
+For load testing, we used Locust to simulate concurrent users accessing the API. The load tests focused on both endpoints, with the root endpoint handling basic requests and the inference endpoint processing image uploads. 
+
+
+Under a load of 50 users, the API maintained an average response time of ~2 ms for the root endpoint, while the inference endpoint handled requests within ~100 ms on average. Failures occurred at higher loads due to server resource limitations, indicating the need for optimization or scaling in a production environment. These tests helped identify bottlenecks and validate the API’s performance under realistic usage conditions. ---
 
 ### Question 26 A
 
