@@ -242,7 +242,11 @@ In total we have implemented 4 tests. Primarily we are testing the data.py and t
 >
 > Answer:
 
---- question 8 fill here ---
+The total code coverage is 70%. In the figure below, we can see the code coverage for all the source code.
+
+![alt text](image.png)
+
+A code coverage of 100% or close is a good indicator but it does not gives us the certainty that the code is free of errors. Code coverage simply counts which lines of code are executed during testing, not if they are working correctly or are capable of handling all situations. Errors like integration problems or environment-specific behavior might still arise if they were not fully considered during testing. High coverage is valuable, but it doesn’t account for logic errors and performance issues. To ensure reliability, good test quality, real-world testing ans thorough reviews are necessary alongside high coverage.
 
 ### Question 9
 
