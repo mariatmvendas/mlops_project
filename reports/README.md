@@ -74,7 +74,7 @@ will check the repositories and the code to verify your answers.
 
 * [x] Write unit tests related to the data part of your code (M16)
 * [x] Write unit tests related to model construction and or model training (M16)
-* [ ] Calculate the code coverage (M16)
+* [x] Calculate the code coverage (M16)
 * [x] Get some continuous integration running on the GitHub repository (M17)
 * [x] Add caching and multi-os/python/pytorch testing to your continuous integration (M17)
 * [x] Add a linting step to your continuous integration (M17)
@@ -633,9 +633,13 @@ The CI/CD pipeline leverages Docker for containerization and deploys models to G
 
 
 Student s242186 was in charge of good coding practices like linting, typing and docstrings. Additionally, the student developed docker files, images and containers. The student also was in charge of logging with log files, wandb logging and artefacts and wandb hyperparameter sweeps. In addition, this student created unit tests for model, training and evaluation and calculated code coverage and was in charge for implementing pre-commit hooks.
-Student s243280 was in charge of all the aspects related to cloud computing. Additionally, the student participated in the development of the files needed for data processing as well as the development of the model training and evaluation files. The student also worked on the profiling and monitoring of the project done. 
+
+Student s243280 was in charge of all the aspects related to cloud computing. Additionally, the student participated in the development of the files needed for data processing as well as the development of the model training and evaluation files. The student also worked on the profiling and monitoring of the project done.
+
 Student s243299 actively contributed to the development of the data processing pipeline, ensuring the proper handling and transformation of datasets. The student assisted in implementing logging in the code to monitor model performance and track results effectively, promoting transparency and facilitating better analysis of experiments. Additionally, the student played a significant role in designing and developing the project's workflows, as well as creating the project's architetural pipeline and addressing boilerplate code, which established a clean and efficient project structure.
+
 Student sXXXXXX ...
+
 Student sXXXXXX ...
 
 Furthermore, we have used ChatGPT to help debug our code. Additionally, we used GitHub Copilot to help write some of our code.
