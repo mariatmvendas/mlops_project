@@ -229,7 +229,7 @@ We used extensive docstrings on important functions as well as typing for docume
 In total we have implemented 4 tests. Primarily we are testing the data.py and train.py files, those include our whole deep learning pipeline. In particular, we tested if the model has the correct number of classes and the correct output shape, if the training function outputs a model.pth file in the correct directory and if the evaluation function gives out a feasible number as accuracy.
 
 
-### Question 8
+### Question 8 R
 
 > **What is the total code coverage (in percentage) of your code? If your code had a code coverage of 100% (or close**
 > **to), would you still trust it to be error free? Explain you reasoning.**
@@ -594,7 +594,7 @@ The CI/CD pipeline leverages Docker for containerization and deploys models to G
 ![Figure](figures/MLO_Pipeline.png)
 
 
-### Question 30
+### Question 30 R
 
 > **Discuss the overall struggles of the project. Where did you spend most time and what did you do to overcome these**
 > **challenges?**
