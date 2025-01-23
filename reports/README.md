@@ -59,32 +59,32 @@ will check the repositories and the code to verify your answers.
 * [x] Remember to comply with good coding practices (`pep8`) while doing the project (M7)
 * [x] Do a bit of code typing and remember to document essential parts of your code (M7)
 * [x] Setup version control for your data or part of your data (M8)
-* [ ] Add command line interfaces and project commands to your code where it makes sense (M9)
+* [x] Add command line interfaces and project commands to your code where it makes sense (M9)
 * [x] Construct one or multiple docker files for your code (M10)
 * [x] Build the docker files locally and make sure they work as intended (M10)
-* [ ] Write one or multiple configurations files for your experiments (M11)
-* [ ] Used Hydra to load the configurations and manage your hyperparameters (M11)
+* [x] Write one or multiple configurations files for your experiments (M11)
+* [x] Used Hydra to load the configurations and manage your hyperparameters (M11)
 * [x] Use profiling to optimize your code (M12)
 * [x] Use logging to log important events in your code (M14)
 * [x] Use Weights & Biases to log training progress and other important metrics/artifacts in your code (M14)
 * [x] Consider running a hyperparameter optimization sweep (M14)
-* [ ] Use PyTorch-lightning (if applicable) to reduce the amount of boilerplate in your code (M15)
+* [x] Use PyTorch-lightning (if applicable) to reduce the amount of boilerplate in your code (M15)
 
 ### Week 2
 
-* [ ] Write unit tests related to the data part of your code (M16)
+* [x] Write unit tests related to the data part of your code (M16)
 * [x] Write unit tests related to model construction and or model training (M16)
 * [ ] Calculate the code coverage (M16)
 * [ ] Get some continuous integration running on the GitHub repository (M17)
 * [ ] Add caching and multi-os/python/pytorch testing to your continuous integration (M17)
 * [ ] Add a linting step to your continuous integration (M17)
 * [x] Add pre-commit hooks to your version control setup (M18)
-* [ ] Add a continues workflow that triggers when data changes (M19)
+* [x] Add a continues workflow that triggers when data changes (M19)
 * [ ] Add a continues workflow that triggers when changes to the model registry is made (M19)
-* [ ] Create a data storage in GCP Bucket for your data and link this with your data version control setup (M21)
+* [x] Create a data storage in GCP Bucket for your data and link this with your data version control setup (M21)
 * [ ] Create a trigger workflow for automatically building your docker images (M21)
-* [ ] Get your model training in GCP using either the Engine or Vertex AI (M21)
-* [ ] Create a FastAPI application that can do inference using your model (M22)
+* [x] Get your model training in GCP using either the Engine or Vertex AI (M21)
+* [x] Create a FastAPI application that can do inference using your model (M22)
 * [ ] Deploy your model in GCP using either Functions or Run as the backend (M23)
 * [ ] Write API tests for your application and setup continues integration for these (M24)
 * [ ] Load test your application (M24)
@@ -106,10 +106,10 @@ will check the repositories and the code to verify your answers.
 
 * [ ] Write some documentation for your application (M32)
 * [ ] Publish the documentation to GitHub Pages (M32)
-* [ ] Revisit your initial project description. Did the project turn out as you wanted?
-* [ ] Create an architectural diagram over your MLOps pipeline
-* [ ] Make sure all group members have an understanding about all parts of the project
-* [ ] Uploaded all your code to GitHub
+* [x] Revisit your initial project description. Did the project turn out as you wanted?
+* [x] Create an architectural diagram over your MLOps pipeline
+* [x] Make sure all group members have an understanding about all parts of the project
+* [x] Uploaded all your code to GitHub
 
 ## Group information
 
@@ -132,7 +132,7 @@ will check the repositories and the code to verify your answers.
 > Answer:
 
 
-s242186, s243280, s242906, s241925, sXXXXXX
+s242186, s243280, s242906, s241925, s243299
 
 
 ### Question 3
@@ -167,7 +167,9 @@ s242186, s243280, s242906, s241925, sXXXXXX
 >
 > Answer:
 
---- question 4 fill here ---
+
+We managed dependencies using a requirements.txt file to list essential libraries and requirements_dev.txt for development tools. To replicate the environment, a new team member would clone the repository, create and activate a virtual environment (conda), and install the dependencies using pip install -r requirements.txt. Alternatively, we can use the Docker setup provided, which contains the entire environment pre-configured, ensuring consistency and preventing dependency conflicts.
+ 
 
 ### Question 5
 
@@ -183,7 +185,11 @@ s242186, s243280, s242906, s241925, sXXXXXX
 >
 > Answer:
 
---- question 5 fill here ---
+ 
+Our project was initialized using the cookiecutter template, which provided a structured framework for organizing our code. The overall structure includes key folders such as src/ for the main source code, tests/ for unit and integration tests, data/ for raw and processed datasets, models/ for saved models, and configs/ for configuration files. 
+
+We focused on filling the essential folders: src/, where we implemented data preprocessing, training, and evaluation scripts; configs/, to manage hyperparameters and pipeline settings; and tests/, to ensure code reliability. We have also added some folder like Wandb or Logs. Some folders, like docs/ and notebooks/, were not heavily utilized as they were not critical for the pipeline. This structure ensured modularity, clarity, and ease of collaboration.
+ 
 
 ### Question 6
 
@@ -223,7 +229,7 @@ We used extensive docstrings on important functions as well as typing for docume
 In total we have implemented 4 tests. Primarily we are testing the data.py and train.py files, those include our whole deep learning pipeline. In particular, we tested if the model has the correct number of classes and the correct output shape, if the training function outputs a model.pth file in the correct directory and if the evaluation function gives out a feasible number as accuracy.
 
 
-### Question 8
+### Question 8 M
 
 > **What is the total code coverage (in percentage) of your code? If your code had a code coverage of 100% (or close**
 > **to), would you still trust it to be error free? Explain you reasoning.**
@@ -371,13 +377,17 @@ For our project we developed one docker image for both training and evaluation o
 >
 > Answer:
 
---- question 16 fill here ---
+
+When debugging experiments, we used a combination of standard debugging tools and profiling techniques. Initial debugging was handled using Visual Studio Code, which allowed us to step through code line-by-line and inspect variables. For deeper performance insights, we utilized a dedicated profiling script (profiling.py) that automates profiling with cProfile and analyzes results with pstats or visualizes them using SnakeViz. This allowed us to identify bottlenecks and optimize critical sections of the code.
+
+While profiling revealed opportunities for improvement, most computations in our project were abstracted through frameworks like PyTorch Lightning, making further optimizations challenging. Despite this, our profiling efforts ensured that the code runs efficiently and identified areas that could be improved in the future.
+
 
 ## Working in the cloud
 
 > In the following section we would like to know more about your experience when developing in the cloud.
 
-### Question 17 A
+### Question 17
 
 > **List all the GCP services that you made use of in your project and shortly explain what each service does?**
 >
@@ -388,11 +398,13 @@ For our project we developed one docker image for both training and evaluation o
 >
 > Answer:
 
---- question 17 fill here ---
+We mainly used the following services: Compute Engine, Cloud Build, Artifact Registry and Cloud Storage. Cloud Storage was used to store our project data. Cloud Build and Artifact Registry were used to manage our containerized workflows. Cloud Build handled the creation of Docker images, while Artifact Registry stored these images. Finally, Compute Engine was used to run our machine learning model. 
 
-### Question 18 A
 
-> **The backbone of GCP is the Compute engine. Explained how you made use of this service and what type of VMs**
+
+### Question 18
+
+> **The backbone of GCP is the Compute engine. Explain how you made use of this service and what type of VMs**
 > **you used?**
 >
 > Recommended answer length: 100-200 words.
@@ -403,36 +415,42 @@ For our project we developed one docker image for both training and evaluation o
 >
 > Answer:
 
---- question 18 fill here ---
+We used the Compute Engine to run our machine learning model on a virtual machine. We created a e2-medium instance with 2vCPU and 4GB memory. After ensuring that PyTorch was installed, we were able to execute our model in the cloud. This setup allowed us to efficiently train the model while managing the computational resources needed for the task.
 
-### Question 19 A
+
+### Question 19
 
 > **Insert 1-2 images of your GCP bucket, such that we can see what data you have stored in it.**
 > **You can take inspiration from [this figure](figures/bucket.png).**
 >
 > Answer:
 
---- question 19 fill here ---
+We stored both our raw and processed data in our GCP bucket. 
 
-### Question 20 (?)
+![Figure](figures/gcloud_bucket.png)
+
+### Question 20
 
 > **Upload 1-2 images of your GCP artifact registry, such that we can see the different docker images that you have**
 > **stored. You can take inspiration from [this figure](figures/registry.png).**
 >
 > Answer:
 
---- question 20 fill here ---
+We just stored one docker image in our GCP artifact registry. 
 
-### Question 21 A
+![Figure](figures/gcloud_image.png)
+
+### Question 21
 
 > **Upload 1-2 images of your GCP cloud build history, so we can see the history of the images that have been build in**
 > **your project. You can take inspiration from [this figure](figures/build.png).**
 >
 > Answer:
 
---- question 21 fill here ---
+![Figure](figures/gcloud_buildhistory.png)
 
-### Question 22 (?)
+
+### Question 22
 
 > **Did you manage to train your model in the cloud using either the Engine or Vertex AI? If yes, explain how you did**
 > **it. If not, describe why.**
@@ -445,7 +463,9 @@ For our project we developed one docker image for both training and evaluation o
 >
 > Answer:
 
---- question 22 fill here ---
+
+We managed to train our model in the cloud using the Compute Engine. We did this by first creating an appropiate VM that had PyTorch preinstalled. Then, we logged into this VM and checked that Pytorch was indeed installed. After this, we cloned our GitHub repository, we installed the necessary dependencies by running `pip3 install -r requirements.txt` and downloaded the data from our GCS bucket. Finally, we called our train.py file to train our model on the cloud. 
+
 
 ## Deployment
 
@@ -510,7 +530,7 @@ For load testing, we used Locust to simulate concurrent users accessing the API.
 At 6 users it starts failing. At the maximum of 10 usesrs it has 19% failures
 --
 
-### Question 26 A
+### Question 26
 
 > **Did you manage to implement monitoring of your deployed model? If yes, explain how it works. If not, explain how**
 > **monitoring would help the longevity of your application.**
@@ -523,13 +543,14 @@ At 6 users it starts failing. At the maximum of 10 usesrs it has 19% failures
 >
 > Answer:
 
---- question 26 fill here ---
+We did not manage to implement monitoring yet, but we would like to implement it to track the model’s performance over time, particularly its classification accuracy. By continuously monitoring, we could quickly detect any performance degradation and address issues like shifts in image characteristics or changes in data distribution.
+
 
 ## Overall discussion of project
 
 > In the following section we would like you to think about the general structure of your project.
 
-### Question 27 (A)
+### Question 27
 
 > **How many credits did you end up using during the project and what service was most expensive? In general what do**
 > **you think about working in the cloud?**
@@ -542,7 +563,9 @@ At 6 users it starts failing. At the maximum of 10 usesrs it has 19% failures
 >
 > Answer:
 
---- question 27 fill here ---
+We spent 18% of the available credits during development. The most expensive service was the creation of the Docker image. Working in the cloud was easier than we initially expected. It was nice to learn how to upload data to the cloud and train a model there. Once the steps were understood, the process became quite straightforward and efficient. 
+
+![Figure](figures/gcloud_credits.png)
 
 ### Question 28
 
@@ -578,9 +601,15 @@ Furthermore, we create loggings of model parameters and the used device and save
 >
 > Answer:
 
---- question 29 fill here ---
 
-### Question 30
+The diagram illustrates the Machine Learning Operations Pipeline, starting with the user pulling a pre-built Docker image or cloning the project directory from the GitHub repository to their local environment. In the DEV environment, tools like PyTorch, PyTorch Lightning, Weights & Biases, and Hydra are used for model development, configuration management, and experiment tracking. Data is managed and versioned using DVC in combination with a Local Data Storage. Once changes are made, code, data, and models are added, committed, and pushed to GitHub, triggering GitHub Actions workflows to run tests, build containers, and ensure continuous integration.
+
+The CI/CD pipeline leverages Docker for containerization and deploys models to Google Cloud Platform (GCP) using Google Cloud Deploy. The trained model is exposed via a FastAPI application, allowing users to query predictions through a Query Server connected to GCP. This pipeline ensures reproducibility, scalability, and automation, while tracking and updating datasets and models seamlessly for continuous improvement. It integrates local, cloud, and CI/CD environments to maintain an efficient and reliable workflow.
+
+![Figure](figures/MLO_Pipeline.png)
+
+
+### Question 30 R
 
 > **Discuss the overall struggles of the project. Where did you spend most time and what did you do to overcome these**
 > **challenges?**
@@ -612,8 +641,9 @@ Furthermore, we create loggings of model parameters and the used device and save
 
 
 Student s242186 was in charge of good coding practices like linting, typing and docstrings. Additionally, the student developed docker files, images and containers. The student also was in charge of logging with log files, wandb logging and artefacts and wandb hyperparameter sweeps. In addition, this student created unit tests for model, training and evaluation and calculated code coverage and was in charge for implementing pre-commit hooks.
-Student sXXXXXX ...
+Student s243280 was in charge of all the aspects related to cloud computing. Additionally, the student participated in the development of the files needed for data processing as well as the development of the model training and evaluation files. The student also worked on the profiling and monitoring of the project done. 
 Student sXXXXXX ...
 Student sXXXXXX ...
 Student sXXXXXX ...
 
+We have used ChatGPT to help debug our code. Additionally, we used GitHub Copilot to help write some of our code.

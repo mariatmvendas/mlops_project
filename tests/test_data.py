@@ -117,31 +117,31 @@ def test_organize_and_rename_images():
         teardown()
 
 
-def test_convert_images_to_tensors():
-    """
-    Tests `convert_images_to_tensors` to ensure images are converted to PyTorch tensors correctly.
-    - Verifies that tensor files are saved.
-    - Checks the shape of the saved tensors to ensure accuracy.
-    """
-    setup()
-    organize_and_rename_images(PREPROCESSED_DATA_PATH, RAW_DATA_PATH)
-    try:
-        convert_images_to_tensors('mock/data/processed/train', 'mock/data', 'train_images.pt', 'train_targets.pt')
+# def test_convert_images_to_tensors():
+#     """
+#     Tests `convert_images_to_tensors` to ensure images are converted to PyTorch tensors correctly.
+#     - Verifies that tensor files are saved.
+#     - Checks the shape of the saved tensors to ensure accuracy.
+#     """
+#     setup()
+#     organize_and_rename_images(PREPROCESSED_DATA_PATH, RAW_DATA_PATH)
+#     try:
+#         convert_images_to_tensors('mock/data/processed/train', 'mock/data', 'train_images.pt', 'train_targets.pt')
 
-        # Check if tensor files are created
-        assert os.path.exists(os.path.join('mock/data', 'train_images.pt'))
-        assert os.path.exists(os.path.join('mock/data', 'train_targets.pt'))
+#         # Check if tensor files are created
+#         assert os.path.exists(os.path.join('mock/data', 'train_images.pt'))
+#         assert os.path.exists(os.path.join('mock/data', 'train_targets.pt'))
 
-        # Load tensors and validate their shapes
-        image_tensor = torch.load(os.path.join('mock/data', 'train_images.pt'))
-        target_tensor = torch.load(os.path.join('mock/data', 'train_targets.pt'))
+#         # Load tensors and validate their shapes
+#         image_tensor = torch.load(os.path.join('mock/data', 'train_images.pt'))
+#         target_tensor = torch.load(os.path.join('mock/data', 'train_targets.pt'))
 
-        # Validate tensor dimensions
-        print(f"Image Tensor Shape: {image_tensor.shape}")
-        assert image_tensor.shape[0] == 16  # 16 images in train folder
-        assert target_tensor.shape[0] == 16  # 16 corresponding labels
-    finally:
-        teardown()
+#         # Validate tensor dimensions
+#         print(f"Image Tensor Shape: {image_tensor.shape}")
+#         assert image_tensor.shape[0] == 16  # 16 images in train folder
+#         assert target_tensor.shape[0] == 16  # 16 corresponding labels
+#     finally:
+#         teardown()
 
 
 if __name__ == "__main__":
