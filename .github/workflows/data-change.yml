@@ -34,7 +34,5 @@ jobs:
       run: |
         python src/mlops_project/data.py
 
-    - name: Generate Data Report
-      run: |
-        python src/mlops_project/visualize.py
+   
 

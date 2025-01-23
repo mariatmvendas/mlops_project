@@ -38,7 +38,5 @@ jobs:
       run: |
         python src/mlops_project/evaluate.py
 
-    - name: Generate Metrics Report
-      run: |
-        python src/mlops_project/visualize.py
+    
 
