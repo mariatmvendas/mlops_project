@@ -507,8 +507,8 @@ The API is designed to provide instructions at the root endpoint (GET /), making
 
 For load testing, we used Locust to simulate concurrent users accessing the API. The load tests focused on both endpoints, with the root endpoint handling basic requests and the inference endpoint processing image uploads. 
 
-
-Under a load of 50 users, the API maintained an average response time of ~2 ms for the root endpoint, while the inference endpoint handled requests within ~100 ms on average. Failures occurred at higher loads due to server resource limitations, indicating the need for optimization or scaling in a production environment. These tests helped identify bottlenecks and validate the API’s performance under realistic usage conditions. ---
+At 6 users it starts failing. At the maximum of 10 usesrs it has 19% failures
+--
 
 ### Question 26 A
 

@@ -43,7 +43,7 @@ def test_read_root():
     assert "message" in response_json
     assert response_json["message"] == expected_message
 
-    # Optionally check instructions for additional robustness
+    # Check instructions for additional robustness
     assert "instructions" in response_json
     assert "satellite_inference" in response_json["instructions"]
     assert "example_curl" in response_json["instructions"]
