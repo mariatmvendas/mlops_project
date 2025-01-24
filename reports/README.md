@@ -327,6 +327,7 @@ the hyperparameters will be the ones defined in the exp1.yaml file.
 By running python src/mlops_project/train.py train --batch-size 12,
 the hyperparameters will be the ones defined in the config.yaml file, except for batch_size that will be 12.
 
+For running a hyperparameter optimization sweep, run 'wandb sweep configs/sweep.yaml' followed by 'wandb agent <sweep_id>' with the sweep_id inserted, which was returned by the first command
 
 ### Question 13
 
@@ -497,7 +498,7 @@ We managed to train our model in the cloud using the Compute Engine. We did this
 
 ## Deployment
 
-### Question 23 
+### Question 23
 
 > **Did you manage to write an API for your model? If yes, explain how you did it and if you did anything special. If**
 > **not, explain how you would do it.**
@@ -517,7 +518,7 @@ GET /: Provides clear instructions on how to use the API, including an example c
 
 To ensure robustness, the API handles file uploads, converts images to the required format, and executes the classification using a pre-trained model via an external script (inference.py). Temporary files are managed efficiently, and error handling ensures that users receive meaningful feedback if something goes wrong.---
 
-### Question 24 
+### Question 24
 
 > **Did you manage to deploy your API, either in locally or cloud? If not, describe why. If yes, describe how and**
 > **preferably how you invoke your deployed service?**
@@ -539,7 +540,7 @@ curl -X POST "http://127.0.0.1:8000/inference_satellite/" \
      -F "data=@path_to_image.jpg"
 The API is designed to provide instructions at the root endpoint (GET /), making it user-friendly and easy to invoke. While we have tested local deployment successfully, further plans include deploying the API to the cloud for wider accessibility. ---
 
-### Question 25 
+### Question 25
 
 > **Did you perform any unit testing and load testing of your API? If yes, explain how you did it and what results for**
 > **the load testing did you get. If not, explain how you would do it.**
@@ -554,7 +555,7 @@ The API is designed to provide instructions at the root endpoint (GET /), making
 
 --- For unit testing, we used the TestClient from FastAPI to test the functionality of the root endpoint (GET /). The unit test verified that the endpoint returned the correct HTTP status code, expected JSON response. The root endpoint returned a 200 status code along with instructions on how to use the API.
 
-For load testing, we used Locust to simulate concurrent users accessing the API. The load tests focused on both endpoints, with the root endpoint handling basic requests and the inference endpoint processing image uploads. 
+For load testing, we used Locust to simulate concurrent users accessing the API. The load tests focused on both endpoints, with the root endpoint handling basic requests and the inference endpoint processing image uploads.
 
 At 6 users it starts failing. At the maximum of 10 usesrs it has 19% failures
 --
@@ -638,7 +639,7 @@ The CI/CD pipeline leverages Docker for containerization and deploys models to G
 ![Figure](figures/MLO_Pipeline.png)
 
 
-### Question 30 
+### Question 30
 
 > **Discuss the overall struggles of the project. Where did you spend most time and what did you do to overcome these**
 > **challenges?**
@@ -650,7 +651,8 @@ The CI/CD pipeline leverages Docker for containerization and deploys models to G
 >
 > Answer:
 
---- At the beginning we were a bit undecided on what dataset and framework to use. Sadly we came across a a fair dataset to work on and checking previous works we identified Timm as framework to use. Later we tried to quickly implement a training and evaluations script. This was good on one hand because on the first day we already implemented the model part but on the other hand bad because we implemetned everything fast and we needed to refactor the code the day after. The following days didn't have any major problem. ---
+At the beginning we were a bit undecided on what dataset and framework to use. Sadly we came across a a fair dataset to work on and checking previous works we identified Timm as framework to use. Later we tried to quickly implement a training and evaluations script. This was good on one hand because on the first day we already implemented the model part but on the other hand bad because we implemetned everything fast and we needed to refactor the code the day after. The following days didn't have any major problem.
+Overall, it was difficult to keep the code always executable, even when different developers were integrating modules over and over again.
 
 ### Question 31
 
