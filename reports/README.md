@@ -307,7 +307,7 @@ Link to GitHub workflows: https://github.com/mariatmvendas/mlops_project/tree/ma
 > In the following section we are interested in learning more about the experimental setup for running your code and
 > especially the reproducibility of your experiments.
 
-### Question 12 M
+### Question 12
 
 > **How did you configure experiments? Did you make use of config files? Explain with coding examples of how you would**
 > **run a experiment.**
@@ -328,7 +328,7 @@ By running python src/mlops_project/train.py train --batch-size 12,
 the hyperparameters will be the ones defined in the config.yaml file, except for batch_size that will be 12.
 
 
-### Question 13 M
+### Question 13
 
 > **Reproducibility of experiments are important. Related to the last question, how did you secure that no information**
 > **is lost when running experiments and that your experiments are reproducible?**
