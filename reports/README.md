@@ -86,8 +86,8 @@ will check the repositories and the code to verify your answers.
 * [x] Get your model training in GCP using either the Engine or Vertex AI (M21)
 * [x] Create a FastAPI application that can do inference using your model (M22)
 * [ ] Deploy your model in GCP using either Functions or Run as the backend (M23)
-* [ ] Write API tests for your application and setup continues integration for these (M24)
-* [ ] Load test your application (M24)
+* [x] Write API tests for your application and setup continues integration for these (M24)
+* [x] Load test your application (M24)
 * [ ] Create a more specialized ML-deployment API using either ONNX or BentoML, or both (M25)
 * [ ] Create a frontend for your API (M26)
 
@@ -497,7 +497,7 @@ We managed to train our model in the cloud using the Compute Engine. We did this
 
 ## Deployment
 
-### Question 23 R
+### Question 23 
 
 > **Did you manage to write an API for your model? If yes, explain how you did it and if you did anything special. If**
 > **not, explain how you would do it.**
@@ -514,9 +514,10 @@ We managed to train our model in the cloud using the Compute Engine. We did this
 
 POST /inference_satellite/: Accepts an image file and returns the predicted label as a JSON response.
 GET /: Provides clear instructions on how to use the API, including an example curl command.
+
 To ensure robustness, the API handles file uploads, converts images to the required format, and executes the classification using a pre-trained model via an external script (inference.py). Temporary files are managed efficiently, and error handling ensures that users receive meaningful feedback if something goes wrong.---
 
-### Question 24 R
+### Question 24 
 
 > **Did you manage to deploy your API, either in locally or cloud? If not, describe why. If yes, describe how and**
 > **preferably how you invoke your deployed service?**
@@ -538,7 +539,7 @@ curl -X POST "http://127.0.0.1:8000/inference_satellite/" \
      -F "data=@path_to_image.jpg"
 The API is designed to provide instructions at the root endpoint (GET /), making it user-friendly and easy to invoke. While we have tested local deployment successfully, further plans include deploying the API to the cloud for wider accessibility. ---
 
-### Question 25 R
+### Question 25 
 
 > **Did you perform any unit testing and load testing of your API? If yes, explain how you did it and what results for**
 > **the load testing did you get. If not, explain how you would do it.**
@@ -637,7 +638,7 @@ The CI/CD pipeline leverages Docker for containerization and deploys models to G
 ![Figure](figures/MLO_Pipeline.png)
 
 
-### Question 30 R
+### Question 30 
 
 > **Discuss the overall struggles of the project. Where did you spend most time and what did you do to overcome these**
 > **challenges?**
@@ -649,7 +650,7 @@ The CI/CD pipeline leverages Docker for containerization and deploys models to G
 >
 > Answer:
 
---- question 30 fill here ---
+--- At the beginning we were a bit undecided on what dataset and framework to use. Sadly we came across a a fair dataset to work on and checking previous works we identified Timm as framework to use. Later we tried to quickly implement a training and evaluations script. This was good on one hand because on the first day we already implemented the model part but on the other hand bad because we implemetned everything fast and we needed to refactor the code the day after. The following days didn't have any major problem. ---
 
 ### Question 31
 
@@ -674,8 +675,8 @@ Student s243280 was in charge of all the aspects related to cloud computing. Add
 
 Student s243299 contributed to the development of the data processing pipeline, ensuring the proper handling and transformation of datasets. The student assisted in implementing logging in the code to monitor model performance and track results effectively, promoting transparency and facilitating better analysis of experiments. Additionally, the student played a significant role in designing the project's workflows, as well as creating the project's architectural pipeline and addressing boilerplate code, which established a clean and efficient project structure.
 
-Student sXXXXXX ...
+Student s241925 contributed to writing the scripts to train and evaluate the model. Added command line interfaces. Contributed to write unite tests. Created Fast API application. Wrote API tests. Did load testing.
 
 Student sXXXXXX ...
 
-Furthermore, we have used ChatGPT to help debug our code. Additionally, we used GitHub Copilot to help write some of our code.
+Furthermore, we have used ChatGPT to help write our code. Additionally, we used GitHub Copilot to help write some of our code.
