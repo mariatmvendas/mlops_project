@@ -92,11 +92,6 @@ def train(
             None
 
     """
-    # Initialize wandb
-    run = wandb.init(
-        project="mlops_project",
-        job_type="train",
-        config={"learning_rate": learning_rate, "batch_size": batch_size, "num_epochs": num_epochs})
 
     with initialize(config_path="../../configs",job_name="test_app",version_base="1.1"):
         cfg = compose(config_name=config)
@@ -114,6 +109,12 @@ def train(
     typer.echo(f"  Batch Size: {batch_size}")
     typer.echo(f"  Learning Rate: {learning_rate}")
     typer.echo(f"  Number of Epochs: {num_epochs}")
+
+    # Initialize wandb
+    run = wandb.init(
+        project="mlops_project",
+        job_type="train",
+        config={"learning_rate": learning_rate, "batch_size": batch_size, "num_epochs": num_epochs})
 
 
     # Load training data
@@ -193,11 +194,6 @@ def evaluate(
             None
 
     """
-    # Initialize wandb
-    run = wandb.init(
-        project="mlops_project",
-        job_type="evaluate",
-        config={"batch_size": batch_size})
 
     with initialize(config_path="../../configs",job_name="test_app",version_base="1.1"):
         cfg = compose(config_name=config)
@@ -214,6 +210,11 @@ def evaluate(
     typer.echo(f"  Batch Size: {batch_size}")
     typer.echo(f"  Model Path: {model_path}")
 
+    # Initialize wandb
+    run = wandb.init(
+        project="mlops_project",
+        job_type="evaluate",
+        config={"batch_size": batch_size})
 
     # Load test data
     try:
