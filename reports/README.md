@@ -327,7 +327,7 @@ the hyperparameters will be the ones defined in the exp1.yaml file.
 By running python src/mlops_project/train.py train --batch-size 12,
 the hyperparameters will be the ones defined in the config.yaml file, except for batch_size that will be 12.
 
-For running a hyperparameter optimization sweep, run 'wandb sweep configs/sweep.yaml' followed by 'wandb agent <sweep_id>' with the sweep_id inserted, which was returned by the first command
+For running a hyperparameter optimization sweep, run 'wandb sweep configs/sweep.yaml' followed by 'wandb agent <sweep_id>' with the sweep_id inserted, which was returned by the first command.
 
 ### Question 13
 
@@ -430,7 +430,6 @@ While profiling revealed opportunities for improvement, most computations in our
 We mainly used the following services: Compute Engine, Cloud Build, Artifact Registry and Cloud Storage. Cloud Storage was used to store our project data. Cloud Build and Artifact Registry were used to manage our containerized workflows. Cloud Build handled the creation of Docker images, while Artifact Registry stored these images. Finally, Compute Engine was used to run our machine learning model.
 
 
-
 ### Question 18
 
 > **The backbone of GCP is the Compute engine. Explain how you made use of this service and what type of VMs**
@@ -511,12 +510,12 @@ We managed to train our model in the cloud using the Compute Engine. We did this
 >
 > Answer:
 
---- We successfully implemented an API for our model using FastAPI. The API is designed to perform a single task: predicting the label of an image. The implementation is located in src.mlops_project.api.py. The API has two endpoints:
+We successfully implemented an API for our model using FastAPI. The API is designed to perform a single task: predicting the label of an image. The implementation is located in src.mlops_project.api.py. The API has two endpoints:
 
 POST /inference_satellite/: Accepts an image file and returns the predicted label as a JSON response.
 GET /: Provides clear instructions on how to use the API, including an example curl command.
 
-To ensure robustness, the API handles file uploads, converts images to the required format, and executes the classification using a pre-trained model via an external script (inference.py). Temporary files are managed efficiently, and error handling ensures that users receive meaningful feedback if something goes wrong.---
+To ensure robustness, the API handles file uploads, converts images to the required format, and executes the classification using a pre-trained model via an external script (inference.py). Temporary files are managed efficiently, and error handling ensures that users receive meaningful feedback if something goes wrong.
 
 ### Question 24
 
@@ -532,13 +531,13 @@ To ensure robustness, the API handles file uploads, converts images to the requi
 >
 > Answer:
 
---- We successfully deployed our API locally using FastAPI. The API was wrapped into an application located in src.mlops_project.api.py. For local deployment, we used Uvicorn as the ASGI server. The command to start the server is:
+We successfully deployed our API locally using FastAPI. The API was wrapped into an application located in src.mlops_project.api.py. For local deployment, we used Uvicorn as the ASGI server. The command to start the server is:
 uvicorn src.mlops_project.api:app --reload --host 127.0.0.1 --port 8000
 Once deployed, the API can be invoked using a POST request to the /inference_satellite/ endpoint. Users can upload an image file for classification and receive the predicted label as a JSON response. For example:
 curl -X POST "http://127.0.0.1:8000/inference_satellite/" \
      -H "Content-Type: multipart/form-data" \
      -F "data=@path_to_image.jpg"
-The API is designed to provide instructions at the root endpoint (GET /), making it user-friendly and easy to invoke. While we have tested local deployment successfully, further plans include deploying the API to the cloud for wider accessibility. ---
+The API is designed to provide instructions at the root endpoint (GET /), making it user-friendly and easy to invoke. While we have tested local deployment successfully, further plans include deploying the API to the cloud for wider accessibility.
 
 ### Question 25
 
@@ -553,12 +552,11 @@ The API is designed to provide instructions at the root endpoint (GET /), making
 >
 > Answer:
 
---- For unit testing, we used the TestClient from FastAPI to test the functionality of the root endpoint (GET /). The unit test verified that the endpoint returned the correct HTTP status code, expected JSON response. The root endpoint returned a 200 status code along with instructions on how to use the API.
+For unit testing, we used the TestClient from FastAPI to test the functionality of the root endpoint (GET /). The unit test verified that the endpoint returned the correct HTTP status code, expected JSON response. The root endpoint returned a 200 status code along with instructions on how to use the API.
 
 For load testing, we used Locust to simulate concurrent users accessing the API. The load tests focused on both endpoints, with the root endpoint handling basic requests and the inference endpoint processing image uploads.
 
 At 6 users it starts failing. At the maximum of 10 usesrs it has 19% failures
---
 
 ### Question 26
 
@@ -679,6 +677,6 @@ Student s243299 contributed to the development of the data processing pipeline, 
 
 Student s241925 contributed to writing the scripts to train and evaluate the model. Added command line interfaces. Contributed to write unite tests. Created Fast API application. Wrote API tests. Did load testing.
 
-Student sXXXXXX ...
+All member contributed to code by 20%.
 
 Furthermore, we have used ChatGPT to help write our code. Additionally, we used GitHub Copilot to help write some of our code.
