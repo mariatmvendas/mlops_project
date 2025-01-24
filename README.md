@@ -1,20 +1,3 @@
-# Instruction for developers
-download from kaggle https://www.kaggle.com/datasets/mahmoudreda55/satellite-image-classification
-take the four folders and put them in data/raw
-rename green area to forest
-run data.py
-run train.py
-   train
-   evaluate
-
-# src directory
-contains data.py to preprocess data, train.py to train the model and evaluate it, profiling.py to profile the model.
-
-# test directory
-the directory contains test for src. In order to launch them you need to do pytest tests/
-
-# API
-
 # W&B
 - Logging:
 If tracking via Weights & Biases should be enabled, one has to create an account on www.wandb.ai, copy the personal api key
