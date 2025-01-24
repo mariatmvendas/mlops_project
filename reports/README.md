@@ -169,7 +169,7 @@ s242186, s243280, s242906, s241925, s243299
 
 
 We managed dependencies using a requirements.txt file to list essential libraries and requirements_dev.txt for development tools. To replicate the environment, a new team member would clone the repository, create and activate a virtual environment (conda), and install the dependencies using pip install -r requirements.txt. Alternatively, we can use the Docker setup provided, which contains the entire environment pre-configured, ensuring consistency and preventing dependency conflicts.
- 
+
 
 ### Question 5
 
@@ -185,11 +185,11 @@ We managed dependencies using a requirements.txt file to list essential librarie
 >
 > Answer:
 
- 
-Our project was initialized using the cookiecutter template, which provided a structured framework for organizing our code. The overall structure includes key folders such as src/ for the main source code, tests/ for unit and integration tests, data/ for raw and processed datasets, models/ for saved models, and configs/ for configuration files. 
+
+Our project was initialized using the cookiecutter template, which provided a structured framework for organizing our code. The overall structure includes key folders such as src/ for the main source code, tests/ for unit and integration tests, data/ for raw and processed datasets, models/ for saved models, and configs/ for configuration files.
 
 We focused on filling the essential folders: src/, where we implemented data preprocessing, training, and evaluation scripts; configs/, to manage hyperparameters and pipeline settings; and tests/, to ensure code reliability. We have also added some folder like Wandb or Logs. Some folders, like docs/ and notebooks/, were not heavily utilized as they were not critical for the pipeline. This structure ensured modularity, clarity, and ease of collaboration.
- 
+
 
 ### Question 6
 
@@ -229,7 +229,7 @@ We used extensive docstrings on important functions as well as typing for docume
 In total we have implemented 4 tests. Primarily we are testing the data.py and train.py files, those include our whole deep learning pipeline. In particular, we tested if the model has the correct number of classes and the correct output shape, if the training function outputs a model.pth file in the correct directory and if the evaluation function gives out a feasible number as accuracy.
 
 
-### Question 8 
+### Question 8
 
 > **What is the total code coverage (in percentage) of your code? If your code had a code coverage of 100% (or close**
 > **to), would you still trust it to be error free? Explain you reasoning.**
@@ -281,7 +281,7 @@ We made use of both branches and pull requests in our project. In our group we d
 Yes, we used DVC to manage data in our project. By integrating DVC, we were able to version control our datasets effectively, ensuring that every experiment could be traced back to the exact version of the data it used. This was especially valuable for maintaining consistency across team members and reproducing results. The use of remote storage, such as Google Cloud Storage, allowed us to collaborate seamlessly without manually transferring large files. Additionally, DVC provided a clear history of changes to the data, which helped us identify and debug issues related to dataset modifications. Overall, DVC streamlined data management and significantly improved the reproducibility and efficiency of our workflow.
 
 
-### Question 11 
+### Question 11
 
 > **Discuss you continuous integration setup. What kind of continuous integration are you running (unittesting,**
 > **linting, etc.)? Do you test multiple operating systems, Python  version etc. Do you make use of caching? Feel free**
@@ -300,7 +300,7 @@ The primary CI workflow is Python application, focused on code quality, reliabil
 
 Additionally, we have a workflow to handle updates to the model, Model Registry Workflow, and updates to the dataset, Data Change Workflow. The first one is triggered by changes in the models directory by retraining and evaluating the updated model. The second one monitors changes in the data directory and runs the data pipeline (data.py). As the previous workflow, these also test across multiple operating systems and Pyhton versions.
 
-Link to GitHub workflows: https://github.com/mariatmvendas/mlops_project/tree/main/.github/workflows 
+Link to GitHub workflows: https://github.com/mariatmvendas/mlops_project/tree/main/.github/workflows
 
 ## Running code and tracking experiments
 
@@ -360,8 +360,19 @@ To ensure reproducibility, we first used YAML files to define all hyperparameter
 > Answer:
 
 
-We leveraged wandb to track and log our experiments and to present resulting graphs automatically. As seen in the first image 'WandB log train_loss.png', we have tracked the training loss over time in order to verify convergence of the loss curve. This tracking was clearly executed during model training. On the second image 'WandB log validation_accuracy.png' the accuracy of the trained model is depicted which is evaluated on the validation data set. This metric is automatically getting logged when executing the evaluation function. The validation accuracy is important to evaluate the actual performance of the model, since it is impractical to evaluate on the training dataset for obvious reasons. The first and the second image were created with the whole dataset.
+We leveraged wandb to track and log our experiments and to present resulting graphs automatically.
+
+![Figure](figures/WandB_log_train_loss.png)
+
+As seen in the first image, we have tracked the training loss over time in order to verify convergence of the loss curve. This tracking was clearly executed during model training.
+
+![Figure](figures/WandB_log_validation_accuracy.png)
+
+On the second image, the accuracy of the trained model is depicted which is evaluated on the validation data set. This metric is automatically getting logged when executing the evaluation function. The validation accuracy is important to evaluate the actual performance of the model, since it is impractical to evaluate on the training dataset for obvious reasons. The first and the second image were created with the whole dataset.
 Moreover, we created an artifact for the validation accuracy and tracked it on wandb. This can be leveraged for further experiments.
+
+![Figure](figures/WandB_hyperparameter_sweep.png)
+
 Last but not least, we performed a hyperparameter optimization sweep on wandb to see which hyperparameter configuration fits the best for our model. This can be seen on the third image 'WandB hyperparameter sweep.png' with all the sweep configurations and the logged training loss as a performance metric. For feasible runtimes on our local machines, we trained with the sweep agent only on approximately one quarter of the data set.
 
 
@@ -415,7 +426,7 @@ While profiling revealed opportunities for improvement, most computations in our
 >
 > Answer:
 
-We mainly used the following services: Compute Engine, Cloud Build, Artifact Registry and Cloud Storage. Cloud Storage was used to store our project data. Cloud Build and Artifact Registry were used to manage our containerized workflows. Cloud Build handled the creation of Docker images, while Artifact Registry stored these images. Finally, Compute Engine was used to run our machine learning model. 
+We mainly used the following services: Compute Engine, Cloud Build, Artifact Registry and Cloud Storage. Cloud Storage was used to store our project data. Cloud Build and Artifact Registry were used to manage our containerized workflows. Cloud Build handled the creation of Docker images, while Artifact Registry stored these images. Finally, Compute Engine was used to run our machine learning model.
 
 
 
@@ -442,7 +453,7 @@ We used the Compute Engine to run our machine learning model on a virtual machin
 >
 > Answer:
 
-We stored both our raw and processed data in our GCP bucket. 
+We stored both our raw and processed data in our GCP bucket.
 
 ![Figure](figures/gcloud_bucket.png)
 
@@ -453,7 +464,7 @@ We stored both our raw and processed data in our GCP bucket.
 >
 > Answer:
 
-We just stored one docker image in our GCP artifact registry. 
+We just stored one docker image in our GCP artifact registry.
 
 ![Figure](figures/gcloud_image.png)
 
@@ -481,7 +492,7 @@ We just stored one docker image in our GCP artifact registry.
 > Answer:
 
 
-We managed to train our model in the cloud using the Compute Engine. We did this by first creating an appropiate VM that had PyTorch preinstalled. Then, we logged into this VM and checked that Pytorch was indeed installed. After this, we cloned our GitHub repository, we installed the necessary dependencies by running `pip3 install -r requirements.txt` and downloaded the data from our GCS bucket. Finally, we called our train.py file to train our model on the cloud. 
+We managed to train our model in the cloud using the Compute Engine. We did this by first creating an appropiate VM that had PyTorch preinstalled. Then, we logged into this VM and checked that Pytorch was indeed installed. After this, we cloned our GitHub repository, we installed the necessary dependencies by running `pip3 install -r requirements.txt` and downloaded the data from our GCS bucket. Finally, we called our train.py file to train our model on the cloud.
 
 
 ## Deployment
@@ -565,7 +576,7 @@ We did not manage to implement monitoring yet, but we would like to implement it
 >
 > Answer:
 
-We spent 18% of the available credits during development. The most expensive service was the creation of the Docker image. Working in the cloud was easier than we initially expected. It was nice to learn how to upload data to the cloud and train a model there. Once the steps were understood, the process became quite straightforward and efficient. 
+We spent 18% of the available credits during development. The most expensive service was the creation of the Docker image. Working in the cloud was easier than we initially expected. It was nice to learn how to upload data to the cloud and train a model there. Once the steps were understood, the process became quite straightforward and efficient.
 
 ![Figure](figures/gcloud_credits.png)
 
